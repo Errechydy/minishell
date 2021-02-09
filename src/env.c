@@ -1,29 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/03 15:55:08 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/03 17:08:23 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-char *shell_read(void)
+int shell_env(t_minishell *minishell)
 {
 
-	char	*line;
-	int		line_return;
-
-	line_return = get_next_line(0, &line);
-	if(line_return == -1)
+	int i;
+	
+	i = 0;
+	while(minishell->env[i] != NULL)
 	{
-		ft_putstr_fd("Shell: Allocation error\n", 1);
-    	exit(EXIT_FAILURE);
+		ft_putstr_fd(minishell->env[i], 1);
+		ft_putchar_fd('\n', 1);
+		i++;
 	}
-	return (line);
+	return (1);
 }
+
+
+
+int set_env(t_minishell *minishell, char **env)
+{
+
+	int i;
+	char **env_tmp;
+	int env_len;
+
+	env_len = words_counter(env);
+	minishell->env = (char **)malloc(sizeof(char *) * (env_len + 1));
+	if(minishell->env == NULL)
+	{
+		ft_putstr_fd("Shell: allocation error \n", 1); 
+		return (0);		
+	}
+	i = 0;
+	while(env[i] != NULL)
+	{
+		minishell->env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	minishell->env[i] = NULL;
+	return (1);
+}
+

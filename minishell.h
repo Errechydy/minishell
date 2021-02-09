@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/02 15:33:36 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:09:30 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,22 @@
 #define LSH_TOK_DELIM " \t\r\n\a"
 
 
+typedef struct	s_command
+{
+	char			    *execter;
+	char			    **args;
+	char			    **full;
+	char			    *str;
+	int 			    key;
+	struct s_command	*next;
+}				t_command;
 
 typedef struct s_minishell
 {
-    char **command;
-    char **env;
+    struct s_command    *command;
+    char                **env;
 } t_minishell;
+
 
 
 int			get_next_line(int fd, char **line);
@@ -50,25 +60,49 @@ char		*ft_strdup(const char *s1);
 int			ft_strcmp(const char *x, const char *y);
 int		    ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strjoin(char const *s1, char const *s2);
+void		ft_putchar_fd(char c, int fd);
+int			ft_isalpha(int c);
+char 		*trimit(char *s);
+size_t		ft_strlen(const char *s);
 
+
+int			env_compair(char *var1, char *var2);
+int			vars_counter_and_update(char **new_vars, char **env);
+int			var_exist(char *var, char **env);
+char		**get_new_env(char **new_vars, char **env, int len);
+int			ft_is_equal(int c);
+int			arg_has_equal(char *str);
+int			ft_is_userscore(int c);
+int			arg_start_with_char(char *str);
+int 		is_valid_arg(char *arg, int show_error);
+int 		is_valid_arg2(char *arg, int show_error);
+int			count_valid_args(char **args);
+void		set_valid_envs(t_command *command);
 
 void	    free_double(char **str);
-char        *found_exec(t_minishell minishell);
-int         shell_export(t_minishell minishell);
+void        free_commands(t_minishell *minishell);
+
+int         shell_env(t_minishell *minishell);
+int			shell_export(t_command *command, t_minishell *minishell);
+int			shell_unset(t_command *command, t_minishell *minishell);
+int			set_env(t_minishell *minishell, char **env);
+int			words_counter(char **env);
+char		*found_exec(t_command *command, t_minishell *minishell);
+void		echo_display(char *str, int escape_n);
 
 
-char		**shell_parce(char *line);
+void		shell_parce(t_minishell *minishell, char *line);
 char		*shell_read(void);
-int			shell_execute(t_minishell minishell);
-int			shell_launch(t_minishell minishell);
+int			shell_execute(t_command *current, t_minishell *minishell);
+int 		shell_launch(t_command *command, t_minishell *minishell);
 
-int			shell_cd(char **args);
-int			shell_exit(char **args);
-int			shell_echo(char **args);
+int			shell_cd(t_command *command);
+int			shell_exit(t_command *command);
+int			shell_echo(t_command *command);
 
 
 
 // Remove it later
-void		read_parced_args(char **args); 
+void        read_parced_args(t_minishell *minishell);
 
 #endif

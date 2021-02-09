@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/09 19:24:25 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:18:57 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void echo_display(char *str, int escape_n)
 	int i;
 	int quote;
 	char *str2;
-	int escape;
+
 
 	if (escape_n == 1)
 	{
@@ -38,7 +38,6 @@ void echo_display(char *str, int escape_n)
 	}
 
 	quote = 0; // ' = 1; " = 2
-	escape = 0;
 	// ' 39
 	// " 34
 	// \ 92 escape
@@ -60,13 +59,6 @@ void echo_display(char *str, int escape_n)
 		// if  \ before ' or " or $ then escape it
 		else if(quote == 2)
 		{
-			if (str2[i] == 92)
-			{
-				escape = 1;
-				i++;
-				continue ;
-			}
-			
 			if (str2[i] != 34)
 			{
 				if (str2[i] == 36)
@@ -82,16 +74,10 @@ void echo_display(char *str, int escape_n)
 		// handle escapes $ and escapes 
 		else
 		{
-			if (str2[i] == 92)
-			{
-				escape = 1;
-				i++;
-				continue ;
-			}
 			// current char is = ' OR " OR $
 			if(str2[i] == 39 || str2[i] == 34 || str2[i] == 36)
 			{
-				if(escape == 1)
+				if(str2[i - 1] == 92)
 					ft_putchar_fd(str2[i], 1);
 				else if (str2[i] == 39)
 				{

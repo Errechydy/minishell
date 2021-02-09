@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   unset2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/06 17:34:19 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/06 17:05:28 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int env_compair(char *var1, char *var2)
 	return (res);
 }
 
-int vars_counter_and_update(char **new_vars, char **env)
+int vars_counter_and_(char **new_vars, char **env)
 {
 	int i;
 	int j;
@@ -46,8 +46,9 @@ int vars_counter_and_update(char **new_vars, char **env)
 		{
 			if(env_compair(new_vars[i], env[j]) == 1)
 			{
-				free(env[j]);
-				env[j] = ft_strdup(new_vars[i]);
+				// 
+				// free(env[j]);
+				// env[j] = ft_strdup(new_vars[i]);
 				
 				counter++;
 			}
@@ -55,7 +56,7 @@ int vars_counter_and_update(char **new_vars, char **env)
 		}
 		i++;
 	}
-	counter = words_counter(new_vars) - counter;
+	// counter = words_counter(new_vars) - counter;
 	return (counter);
 }
 
@@ -131,7 +132,7 @@ int		arg_start_with_char(char *str)
 	return (0);
 }
 
-int is_valid_arg(char *arg, int show_error)
+int is_valid_arg(char *arg, int show_error, char *str)
 {
 	// if arg has at least one "=", don't show error in this case
 	if(arg_has_equal(arg) == 1) // TODO: crate this
@@ -146,7 +147,9 @@ int is_valid_arg(char *arg, int show_error)
 			// if show_error == 1 ===> show errors
 			if(show_error == 1)
 			{
-				ft_putstr_fd("shell: export: '", 1);
+				ft_putstr_fd("shell: ", 1);
+				ft_putstr_fd(str, 1);
+				ft_putstr_fd(": `", 1);
 				ft_putstr_fd(arg, 1);
 				ft_putstr_fd("': not a valid identifier\n", 1);
 			}
@@ -156,23 +159,9 @@ int is_valid_arg(char *arg, int show_error)
 	return (0);
 }
 
-int count_valid_args(char **args)
-{
-	int i;
-	int len;
 
-	len = 0;
-	i = 0;
-	while (args[i] != NULL)
-	{
-		if(is_valid_arg(args[i], 0) == 1)
-			len++;
-		i++;
-	}
-	return (len);
-}
 
-void set_valid_envs(t_command *command)
+void set_valid_envs2(t_command *command)
 {
 	int i;
 	int j;
@@ -185,7 +174,7 @@ void set_valid_envs(t_command *command)
 	j = 0;
 	while (command->args[i] != NULL)
 	{
-		if(is_valid_arg(command->args[i], 1) == 1)
+		if(is_valid_arg(command->args[i], 1, "unset") == 1)
 		{
 			new_env[j] = ft_strdup(command->args[i]);
 			j++;
@@ -198,7 +187,22 @@ void set_valid_envs(t_command *command)
 	command->args = new_env;
 }
 
-int shell_export(t_command *command, t_minishell *minishell)
+
+int		keep_env(char *arg, char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
+		if(env_compair(args[i], arg) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int shell_unset(t_command *command, t_minishell *minishell)
 {
 
 // TODO: export many variables exm: export A=123 B=345 .....
@@ -215,32 +219,27 @@ int shell_export(t_command *command, t_minishell *minishell)
 	int j;
 	char **new_env;
 
-	set_valid_envs(command);
+	set_valid_envs2(command); // command->args // has valid arguments now
+	
 
-	new_vars = vars_counter_and_update(command->args, minishell->env);
+	new_vars = vars_counter_(command->args, minishell->env); // argsNum that needs to be unset
+
+
+	
 	env_len = words_counter(minishell->env);
-	env_tmp = (char **)malloc(sizeof(char *) * (env_len + new_vars + 1));
-	new_env = get_new_env(command->args, minishell->env, new_vars);
+	env_tmp = (char **)malloc(sizeof(char *) * (env_len - new_vars + 1));
 
-
-
-	// printf("allocated = %d \n", env_len + new_vars + 1);
-
+	
 	i = 0;
 	while(minishell->env[i] != NULL)
 	{
-		env_tmp[i] = ft_strdup(minishell->env[i]);
+		if(keep_env(minishell->env[i], command->args) == 1)
+			env_tmp[i] = ft_strdup(minishell->env[i]);
 		i++;
 	}
-	// printf("==== %d \n", i);
-	j = 0;
-	while(new_env[j] != NULL)
-	{	
-		env_tmp[i] = ft_strdup(new_env[j]);
-		j++;
-		i++;
-	}
+
 	env_tmp[i] = NULL;
+
 	
 	free_double(new_env);
 	free_double(minishell->env);
