@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   echo4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/10 19:22:42 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/10 18:18:29 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,45 +49,22 @@ int echo_env(char *str, t_minishell *minishell)
 	char **tmp;
 
 
-	// ' 39
-	// " 34
-	// \ 92 escape
-	// $ 36
-	// space 32
-	
-	// ft_putstr_fd("\n", 1);
-	// ft_putstr_fd("str =|", 1);
-	// ft_putstr_fd(str, 1);
-	// ft_putstr_fd("|\n", 1);
 
 
-	tmp = ft_split(str, ' ');
-	
 
-	len = ft_strlen(tmp[0]);
-	if (tmp[0][len - 1] == 34)
-	{
-		tmp[0][len - 1] = '\0';
-	}
+	tmp = ft_split(&str[1], ' ');
+		ft_putchar_fd('$', 1);
 	
-
-	// ft_putstr_fd("\n", 1);
-	// ft_putstr_fd("tmp[0] =|", 1);
-	// ft_putstr_fd(tmp[0], 1);
-	// ft_putstr_fd("|\n", 1);
-	
-
-	
-	
-	if (tmp[0][1] == '\0')
+	if (!tmp || tmp[0][1] != '\0')
 	{
 		ft_putchar_fd('$', 1);
 		return (0);
 	}
-	else
-		return_env_var(minishell, &tmp[0][1]);
-
 	
+	
+	// tmp[i] = '\0';
+	len = ft_strlen(tmp[0]);
+	return_env_var(minishell, tmp[0]);
 	free_double(tmp);
 	return (len);
 }
@@ -99,17 +76,29 @@ int		handle_envs(char *str, int i, t_minishell *minishell)
 	// \ 92 escape
 	// $ 36
 	// space 32
-	if (str[i] == 36 && (i == 0 || (i > 0 && (str[i - 1] == 32 || str[i - 1] == 34) && str[i - 1] != 92))) // == $
+	if (str[i] == 36 && (i == 0 || (i > 0 && str[i - 1] == 32 && str[i - 1] != 92))) // == $
 	{
-		return (echo_env(&str[i], minishell) - 1); // this func will display the env var if exist and return the lenght from & to the first space
+
+		// TODO: look for the env variable and display it if exist, if it doesn't then ignore it
+		// return (echo_env(&str[i], minishell)); // this func will display the env var if exist and return the lenght from & to the first space
+
+
+		ft_putstr_fd("\n" , 1);
+		ft_putstr_fd(&str[i] , 1);
+		ft_putstr_fd("\n" , 1);
+
+		int k = echo_env(&str[i], minishell);
+		ft_putchar_fd(k + '0' , 1);
+
+		return (k); // this func will display the env var if exist and return the lenght from & to the first space
+
+
+
+
 	}
 	else if (str[i] == 92 && (str[i + 1] == 34 || str[i + 1] == 36)) // == / and i + 1 == " or $ 
 	{
 		// ignore it
-	}
-	else if (str[i] == 34)
-	{
-		/* code */
 	}
 	else
 		ft_putchar_fd(str[i], 1);
@@ -174,7 +163,7 @@ void echo_display(char *str, int escape_n, t_minishell *minishell)
 			}
 			else
 			{
-				if (str2[i] == 36 && (str2[i - 1] == 32 || str2[i - 1] == 34) && str2[i - 1] != 92) // == $
+				if (str2[i] == 36 && str2[i - 1] == 32 && str2[i - 1] != 92) // == $
 				{
 
 					// TODO: look for the env variable and display it if exist, if it doesn't then ignore it
@@ -188,26 +177,22 @@ void echo_display(char *str, int escape_n, t_minishell *minishell)
 				}
 				else
 					ft_putchar_fd(str2[i], 1);
-				
-				// i += handle_envs(str2, i, minishell);
 			}
 		}
-		else
-		{
-			if ((i == 0 && str2[i] == 32) || (i > 0 && str2[i] == 32 && str2[i - 1] == 32)) // space
-			{
-				// ignore
-			}
-			else if (str2[i] == 36 && (str2[i + 1] == 32 || str2[i + 1] == '\0'))
-			{
-				ft_putchar_fd(str2[i], 1);
-			}
-			else
-			{
-				i += handle_envs(str2, i, minishell);
+		// else
+		// {
+		// 	if ((i == 0 && str2[i] == 32) || (i > 0 && str2[i] == 32 && str2[i - 1] == 32)) // space
+		// 	{
+		// 		// ignore
+		// 	}
+		// 	else
+		// 	{
+		// 		i += handle_envs(str2, i, minishell);
 				
-			}
-		}
+		// 	}
+		
+			
+		// }
 
 		if ((str2[i] == 39 ||  str2[i] == 34) && quote == 0)
 		{

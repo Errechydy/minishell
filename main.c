@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/09 19:06:52 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:24:25 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int shell_execute(t_command *command, t_minishell *minishell)
 	if(strcmp(command->execter, "cd") == 0)
 		return (shell_cd(command));
 	else if (strcmp(command->execter, "echo") == 0)
-		return (shell_echo(command));
+		return (shell_echo(command, minishell));
 	else if (strcmp(command->execter, "exit") == 0)
 		return (shell_exit(command));
 	else if (strcmp(command->execter, "export") == 0)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   echo5.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/10 19:22:42 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/10 18:59:44 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,25 @@ int		handle_envs(char *str, int i, t_minishell *minishell)
 	// $ 36
 	// space 32
 	if (str[i] == 36 && (i == 0 || (i > 0 && (str[i - 1] == 32 || str[i - 1] == 34) && str[i - 1] != 92))) // == $
+	// if (str[i] == 36 && (str[i - 1] == 32 || str[i - 1] == 34) && str[i - 1] != 92)
 	{
-		return (echo_env(&str[i], minishell) - 1); // this func will display the env var if exist and return the lenght from & to the first space
+
+		// TODO: look for the env variable and display it if exist, if it doesn't then ignore it
+		return (echo_env(&str[i], minishell)); // this func will display the env var if exist and return the lenght from & to the first space
+
+
+		// ft_putstr_fd("\n" , 1);
+		// ft_putstr_fd(&str[i] , 1);
+		// ft_putstr_fd("\n" , 1);
+
+		// int k = echo_env(&str[i], minishell);
+		// ft_putchar_fd(k + '0' , 1);
+
+		// return (k); 
+
+
+
+
 	}
 	else if (str[i] == 92 && (str[i + 1] == 34 || str[i + 1] == 36)) // == / and i + 1 == " or $ 
 	{
@@ -111,6 +128,7 @@ int		handle_envs(char *str, int i, t_minishell *minishell)
 	{
 		/* code */
 	}
+	
 	else
 		ft_putchar_fd(str[i], 1);
 	return (0);
@@ -188,8 +206,6 @@ void echo_display(char *str, int escape_n, t_minishell *minishell)
 				}
 				else
 					ft_putchar_fd(str2[i], 1);
-				
-				// i += handle_envs(str2, i, minishell);
 			}
 		}
 		else
@@ -198,15 +214,13 @@ void echo_display(char *str, int escape_n, t_minishell *minishell)
 			{
 				// ignore
 			}
-			else if (str2[i] == 36 && (str2[i + 1] == 32 || str2[i + 1] == '\0'))
-			{
-				ft_putchar_fd(str2[i], 1);
-			}
 			else
 			{
 				i += handle_envs(str2, i, minishell);
 				
 			}
+		
+			
 		}
 
 		if ((str2[i] == 39 ||  str2[i] == 34) && quote == 0)

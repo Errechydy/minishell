@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/09 19:09:30 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/10 18:07:15 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int			ft_isalpha(int c);
 char 		*trimit(char *s);
 size_t		ft_strlen(const char *s);
 
-
 int			env_compair(char *var1, char *var2);
 int			vars_counter_and_update(char **new_vars, char **env);
 int			var_exist(char *var, char **env);
@@ -88,7 +87,7 @@ int			shell_unset(t_command *command, t_minishell *minishell);
 int			set_env(t_minishell *minishell, char **env);
 int			words_counter(char **env);
 char		*found_exec(t_command *command, t_minishell *minishell);
-void		echo_display(char *str, int escape_n);
+void		echo_display(char *str, int escape_n, t_minishell *minishell);
 
 
 void		shell_parce(t_minishell *minishell, char *line);
@@ -98,7 +97,7 @@ int 		shell_launch(t_command *command, t_minishell *minishell);
 
 int			shell_cd(t_command *command);
 int			shell_exit(t_command *command);
-int			shell_echo(t_command *command);
+int			shell_echo(t_command *command, t_minishell *minishell);
 
 
 
