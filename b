@@ -1,0 +1,22 @@
+total 2272
+drwxr-xr-x   21 ler-rech  2019      714 Feb 24 16:33 .
+drwxr-xr-x    8 ler-rech  2019      272 Feb 19 11:49 ..
+-rw-r--r--@   1 ler-rech  2019    14340 Feb 22 15:23 .DS_Store
+drwxr-xr-x   12 ler-rech  2019      408 Feb 24 16:29 .git
+drwxr-xr-x    3 ler-rech  2019      102 Feb  3 16:17 .vscode
+-rw-r--r--    1 ler-rech  2019     1741 Feb 22 17:03 Makefile
+-rwxr-xr-x    1 ler-rech  2019    19840 Feb 24 16:29 a.out
+-rw-r--r--    1 ler-rech  2019        0 Feb 24 16:34 b
+-rw-r--r--    1 ler-rech  2019       11 Feb 24 15:46 data2.txt
+drwxr-xr-x    2 ler-rech  2019       68 Feb 23 18:43 dir
+-rw-r--r--    1 ler-rech  2019        0 Feb 24 16:29 file1
+-rw-r--r--    1 ler-rech  2019       23 Feb 24 16:29 file2
+drwxr-xr-x    6 ler-rech  2019      204 Nov 22 23:47 gnl
+drwxr-xr-x@ 103 ler-rech  2019     3502 Feb 22 17:14 libft
+-rw-r--r--    1 ler-rech  2019     6922 Feb 24 16:31 main.c
+-rw-r--r--    1 ler-rech  2019     5273 Feb 22 19:36 main2.c
+-rw-r--r--    1 ler-rech  2019     1426 Feb 24 15:46 mainTest.c
+-rw-r--r--    1 ler-rech  2019     4847 Feb 23 18:31 minishell.h
+-rw-r--r--    1 ler-rech  2019  1079300 Feb 22 15:55 minishell.h.gch
+drwxr-xr-x   11 ler-rech  2019      374 Feb 22 15:23 old
+-rw-r--r--    1 ler-rech  2019     3518 Feb 23 18:49 todo.txt

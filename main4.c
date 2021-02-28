@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/28 16:54:09 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/28 16:22:52 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,66 +54,6 @@ char **dup_arr4()
 	arr[2] = NULL;
 	return (arr);
 }
-
-char **dup_arr5()
-{
-	char **arr;
-
-	arr = (char**)malloc(sizeof(char*) * 2);
-	arr[0] = strdup("main2");
-	arr[1] = NULL;
-
-	return (arr);
-}
-
-char **dup_arr6()
-{
-	char **arr;
-
-	arr = (char**)malloc(sizeof(char*) * 3);
-	arr[0] = strdup("/usr/bin/grep");
-	arr[1] = strdup("main2");
-	arr[2] = NULL;
-	return (arr);
-}
-
-
-char **dup_arr7()
-{
-	char **arr;
-
-	arr = (char**)malloc(sizeof(char*) * 2);
-	arr[0] = strdup("main2.k");
-	arr[1] = NULL;
-
-	return (arr);
-}
-
-char **dup_arr8()
-{
-	char **arr;
-
-	arr = (char**)malloc(sizeof(char*) * 3);
-	arr[0] = strdup("/usr/bin/grep");
-	arr[1] = strdup("main2.k");
-	arr[2] = NULL;
-	return (arr);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*-----------------------------------------------*/
-/*-----------------------------------------------*/
 
 
 int		ft_lstsize(t_list *lst)
@@ -176,7 +116,6 @@ void set_test(t_minishell *minishell)
 	t_command	*command;
 	t_command	*command2;
 	t_command	*command3;
-	t_command	*command4;
 	
 	t_redirection	*redirection;
 	t_redirection	*redirection2;
@@ -200,19 +139,12 @@ void set_test(t_minishell *minishell)
 	ft_lstadd_back(&list3, ft_lstnew(redirection2));
 
 
-	//----
-
-	redirection3 = malloc(sizeof(t_redirection));
-	redirection3->type = LEFT_REDIR;
-	redirection3->file_name = strdup("file2");
-	ft_lstadd_back(&list4, ft_lstnew(redirection3));
-
-
+	
 	// ----------------------------------
 
 	command = malloc(sizeof(t_command));
-	command->redirections = list3;
-	// command->redirections = NULL;
+	// command->redirections = list3;
+	command->redirections = NULL;
 	command->cmd = strdup("/bin/ls");
 	command->exec = strdup("/bin/ls");
 	command->args = dup_arr1();
@@ -224,7 +156,7 @@ void set_test(t_minishell *minishell)
 
 
 	command2 = malloc(sizeof(t_command));
-	command2->redirections = list4;
+	command2->redirections = NULL;
 	command2->cmd = strdup("/usr/bin/grep main");
 	command2->exec = strdup("/usr/bin/grep");
 	command2->args = dup_arr3();
@@ -233,28 +165,8 @@ void set_test(t_minishell *minishell)
 	ft_lstadd_back(&list2, ft_lstnew(command2));
 
 
-	command3 = malloc(sizeof(t_command));
-	command3->redirections = NULL;
-	command3->cmd = strdup("/usr/bin/grep main2");
-	command3->exec = strdup("/usr/bin/grep");
-	command3->args = dup_arr5();
-	command3->full_args = dup_arr6();
-	command3->option = 0;
-	ft_lstadd_back(&list2, ft_lstnew(command3));
-
-
-	command4 = malloc(sizeof(t_command));
-	command4->redirections = NULL;
-	command4->cmd = strdup("/usr/bin/grep main2.k");
-	command4->exec = strdup("/usr/bin/grep");
-	command4->args = dup_arr7();
-	command4->full_args = dup_arr8();
-	command4->option = 0;
-	ft_lstadd_back(&list2, ft_lstnew(command4));
 
 	
-	
-	// ----------------------------------
 	
 	pipe = malloc(sizeof(t_pipeline));
 	pipe->pipe_count = 10;
@@ -341,6 +253,21 @@ int loop_redirections(t_minishell *minishell, t_command *command)
 }
 
 
+int handle_command(t_minishell *minishell, t_command *command)  // current =  command_0 | command | command | command | ....
+{
+	return (1);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 int commands_loop(t_minishell *minishell, t_pipeline *my_pipe)
 {
@@ -350,18 +277,18 @@ int commands_loop(t_minishell *minishell, t_pipeline *my_pipe)
 
 
 	int commands_len = ft_lstsize(my_pipe->commands);
-	int **pipes_fd;
+	int **all_fd;
 	int *forks;
 	
-	forks = malloc((commands_len + 1) * (sizeof(int*)));
-	pipes_fd = malloc(commands_len * (sizeof(int*)));
+	forks = malloc(commands_len * (sizeof(int*)));
+	all_fd = malloc((commands_len - 1) * (sizeof(int*)));
 
 	int j = 0;
-	while (j < (commands_len - 1))
+	while (j < commands_len)
 	{
-		pipes_fd[j] = malloc(2 * sizeof(int));
+		all_fd[j] = malloc(2 * sizeof(int));
 		
-		if (pipe(pipes_fd[j]) == -1)
+		if (pipe(all_fd[j]) == -1)
 		{
 			return (1);
 		}
@@ -376,7 +303,15 @@ int commands_loop(t_minishell *minishell, t_pipeline *my_pipe)
    	while(current != NULL)
 	{
 		command = (t_command*)current->content;
-		
+		status = loop_redirections(minishell, command);
+		if(status == 0)
+			return (0);
+
+
+
+
+			
+
 
 		forks[i] = fork();
 		if (forks[i] < 0)
@@ -388,45 +323,62 @@ int commands_loop(t_minishell *minishell, t_pipeline *my_pipe)
 			// Child process 
 			if (i == 0) // first fork
 			{
-				dup2(pipes_fd[0][1], 1);
+				dup2(all_fd[0][1], 1);
 			}
 			else if (i == (commands_len - 1)) // last fork
 			{
-				dup2(pipes_fd[i - 1][0], 0);
+				dup2(all_fd[i - 1][0], 0);
 			}
 			else
 			{
-				dup2(pipes_fd[i - 1][0], 0);
-				dup2(pipes_fd[i][1], 1);
+				dup2(all_fd[i - 1][0], 0);
+				dup2(all_fd[i][1], 1);
 			}
-			// close all pipes_fd
+			
+			
+			
+			
+			
+			// close(all_fd[0][0]);
+			// close(all_fd[0][1]);
+			// close(all_fd[1][0]);
+			// close(all_fd[1][1]);
+			// close(all_fd[2][0]);
+			// close(all_fd[2][1]);
 			f = 0;
 			while (f < (commands_len - 1))
 			{
-				close(pipes_fd[f][0]);
-				close(pipes_fd[f][1]);
+				close(all_fd[f][0]);
+				close(all_fd[f][1]);
 				f++;
 			}
-			// handle redirections
-			status = loop_redirections(minishell, command);
-			if(status == 0)
-				return (0);
 			
 			execve(command->exec, command->full_args, minishell->env);
 			
 			exit(0);
 		}
-		
 		i++;
       	current = current->next;
    	}
+
+	// close(all_fd[0][0]);
+	// close(all_fd[0][1]);
+	// close(all_fd[1][0]);
+	// close(all_fd[1][1]);
+	// close(all_fd[2][0]);
+	// close(all_fd[2][1]);
 	f = 0;
 	while (f < (commands_len - 1))
 	{
-		close(pipes_fd[f][0]);
-		close(pipes_fd[f][1]);
+		close(all_fd[f][0]);
+		close(all_fd[f][1]);
 		f++;
 	}
+		
+	// waitpid(forks[0], NULL, 0);
+	// waitpid(forks[1], NULL, 0);
+	// waitpid(forks[2], NULL, 0);
+	// waitpid(forks[3], NULL, 0);
 	f = 0;
 	while (f < commands_len)
 	{

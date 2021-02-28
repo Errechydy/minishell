@@ -3,6 +3,74 @@
 
 
 
+
+
+
+
+
+
+
+- create file (normal file)
+- create file (can append)
+
+- use dep2() // to change output to
+- use dep2() // to change input from
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> create file, >> create file if not exist if it exists then append to it
+< read from file
+
+
+
+- remove test from all files (test.c, remove it from Makefile, remove all function that are in test.c )
+
+use signals in get_next_line()
+		: getNextLine should return only when '\n', DO NOT return when EOF (user typed Ctrl-D)
+
+--------------------------------
+--------------------------------
+- execute using ( relative or absolute path )
+- don't exit when executing a program
 - scape ', " when echo a string if they are closed otherwise display an error
 
 - if no ' or " then use \ to escape chars ex: it\'s ==> it's
@@ -17,17 +85,6 @@
 
 - main.c : commands_loop()
 		// TODO: wait until each command is executed
-
-
-- remove test from all files (test.c, remove it from Makefile, remove all function that are in test.c )
-
-use signals in get_next_line()
-		: getNextLine should return only when '\n', DO NOT return when EOF (user typed Ctrl-D)
-
---------------------------------
---------------------------------
-- execute using ( relative or absolute path )
-- don't exit when executing a program
 
 
 --------------------------------

@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/10 18:07:15 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/02/23 18:31:45 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,75 @@
 # include "gnl/get_next_line.h"
 
 
-#define LINE_BUFFER_SIZE 1024
 # define EXIT_SUCCESS		0
 # define EXIT_FAILURE		1
 
-#define LSH_TOK_BUFSIZE 64
-#define LSH_TOK_DELIM " \t\r\n\a"
+
+# define LEFT_REDIR 1
+# define RIGHT_REDIR 2
+# define DRIGHT_REDIR 3
 
 
-typedef struct	s_command
+
+
+typedef struct	s_list
 {
-	char			    *execter;
-	char			    **args;
-	char			    **full;
-	char			    *str;
-	int 			    key;
-	struct s_command	*next;
-}				t_command;
+	void					*content;
+	struct s_list			*next;
+}				t_list;
 
-typedef struct s_minishell
+
+typedef struct  s_redirection
 {
-    struct s_command    *command;
-    char                **env;
-} t_minishell;
+	int						type;		   // 1 = > , 2 = >>, 3 = <
+	char					*file_name;
+}			   t_redirection;
+
+typedef struct  s_command
+{
+	char					*cmd;		   // "echo aaaa	 bbbb" // don't include -n
+	char					*exec;		  // "echo"
+	char					**args;		 // ["aaaa", "bbbb"]
+	char					**full_args;	// ["echo", "aaaa", "bbbb"]
+	int						option;		 // 1 if echo -n, 0 if not
+	t_list					*redirections;
+}			   t_command;
+
+typedef struct	s_pipeline // command | command | command |
+{
+	int						pipe_count;
+	t_list					*commands;
+}				t_pipeline;
+
+typedef struct	s_minishell // pipes ; pipes ; pipes
+{
+	t_list					*pipes;
+	char					**env;
+}				t_minishell;
+
+
+
+
+
+// t_list list;
+
+// WHile (list)
+// {
+// 	t_command cmd = (t_command)list.content
+// }
+
+// while()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -98,6 +144,38 @@ int 		shell_launch(t_command *command, t_minishell *minishell);
 int			shell_cd(t_command *command);
 int			shell_exit(t_command *command);
 int			shell_echo(t_command *command, t_minishell *minishell);
+
+t_list			*ft_lstnew(void *content);
+void			ft_lstadd_front(t_list **alst, t_list *new);
+int				ft_lstsize(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
+void			ft_lstadd_back(t_list **alst, t_list *new);
+void			ft_lstdelone(t_list *lst, void (*del)(void *));
+void			ft_lstclear(t_list **lst, void (*del)(void *));
+void			ft_lstiter(t_list *lst, void (*f)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int 			handle_redirections(t_minishell *minishell, t_redirection *redirection);
+int 			loop_redirections(t_minishell *minishell, t_command *command);
+int 			handle_command(t_minishell *minishell, t_command *command);
+int 			commands_loop(t_minishell *minishell, t_pipeline *pipe);
+int 			pipes_loop(t_minishell *minishell);
+
+
+
+
 
 
 
