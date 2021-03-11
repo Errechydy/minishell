@@ -6,19 +6,16 @@
 #    By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 16:30:24 by ler-rech          #+#    #+#              #
-#    Updated: 2021/02/22 17:03:42 by ler-rech         ###   ########.fr        #
+#    Updated: 2021/03/11 16:46:57 by ler-rech         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -Wall -Wextra -Werror
 GCC = gcc
-FILES_C =	test.c \
-			main.c \
-			gnl/get_next_line.c \
-			gnl/get_next_line_utils.c \
+FILES_C =	main.c \
+			get_next_line/get_next_line.c \
+			get_next_line/get_next_line_utils.c \
 			src/functions.c \
-			src/read.c \
-			src/parce.c \
 			src/exe.c \
 			src/cd.c \
 			src/exit.c \
@@ -28,8 +25,14 @@ FILES_C =	test.c \
 			src/export.c \
 			src/unset.c \
 			src/free.c \
+			data.c \
+			parsing/*.c \
+			parsing/errors/*.c \
+			parsing/helpers/*.c \
+			parsing/spec_chars/*.c
 
-FILES_O =	test.o main.o src/read.o src/parce.o src/exe.o src/functions.o cd.o exit.o echo.o helper.o env.o export.o unset.o free.o 
+# FILES_O =	test.o main.o src/exe.o src/functions.o cd.o exit.o echo.o helper.o env.o export.o unset.o free.o data.o
+FILES_O =	*.o
 
 NAME = minishell
 
@@ -55,5 +58,5 @@ bonus: all
 
 test:
 	@rm -rf minishell
-	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address -g
+	@$(GCC) -o minishell $(FILES_C) libft/libft.a
 	@./minishell

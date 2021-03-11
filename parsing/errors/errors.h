@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrhirha <hrhirha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/03 15:55:08 by ler-rech         ###   ########.fr       */
+/*   Created: 2021/02/21 18:14:06 by hrhirha           #+#    #+#             */
+/*   Updated: 2021/02/21 18:14:08 by hrhirha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
+# define SNTXERR 1
 
-char *shell_read(void)
-{
+void	exit_errno(int errnum);
+int		error(int errnum, char c);
 
-	char	*line;
-	int		line_return;
-
-	line_return = get_next_line(0, &line);
-	if(line_return == -1)
-	{
-		ft_putstr_fd("Shell: Allocation error\n", 1);
-    	exit(EXIT_FAILURE);
-	}
-	return (line);
-}
+#endif

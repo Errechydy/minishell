@@ -6,31 +6,16 @@
 
 
 
+-  < file, if file doesn't exist display error
 
 
 
+-------
 
-- create file (normal file)
-- create file (can append)
-
-- use dep2() // to change output to
-- use dep2() // to change input from
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- exit with status code
+- "cd" and "cd ;" and "cd;" 
+- ==> ./a.out doesn't execute a.out
+> f1
 
 
 
