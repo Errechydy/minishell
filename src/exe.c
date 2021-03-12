@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/11 19:01:41 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/12 16:49:13 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int shell_launch(t_minishell *minishell, t_command *command)
 	if (execter == NULL)
 	{
 		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(execter, 2);
-		ft_putstr_fd(" command not found\n", 2);
+		ft_putstr_fd(command->full_args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		g_last_exec = 127;
 		return (1);
 	}
@@ -126,8 +126,8 @@ int shell_launch(t_minishell *minishell, t_command *command)
         if (execve(execter, command->full_args, minishell->env) == -1)
 		{
 			ft_putstr_fd("Minishell: ", 2);
-            ft_putstr_fd(execter, 2);
-			ft_putstr_fd(" command not found\n", 2);
+            ft_putstr_fd(command->full_args[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
 			g_last_exec = 127;
 		}
 		else

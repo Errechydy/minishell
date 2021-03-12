@@ -6,7 +6,7 @@
 #    By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 16:30:24 by ler-rech          #+#    #+#              #
-#    Updated: 2021/03/11 16:46:57 by ler-rech         ###   ########.fr        #
+#    Updated: 2021/03/12 15:15:56 by ler-rech         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,9 @@ lib:
 	cd libft; make ; make bonus
 
 $(NAME):
+	@$(GCC) -o minishell $(FILES_C) libft/libft.a
+
+san:
 	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address -g
 
 clean:

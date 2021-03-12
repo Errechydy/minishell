@@ -5,40 +5,62 @@
 
 
 
+echo -n -n -n -n bonjour
+echo $sdfds // not existing variable
+export BONJOUR\\sdfsf=a
+echo $A$B
 
--  < file, if file doesn't exist display error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 -------
 
+
 - exit with status code
 - "cd" and "cd ;" and "cd;" 
 - ==> ./a.out doesn't execute a.out
 > f1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

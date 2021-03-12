@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 12:32:27 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/12 16:18:02 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/12 15:30:49 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ int pipes_loop(t_minishell *minishell)
 		if(status < 0)
 		{
 			g_last_exec = 1;
-			return (1);
+			// return (1);
 		}
 		else if(status == 0)
 			return (0);
@@ -334,8 +334,22 @@ int		main(int ac, char **av, char **env)
 	data->command->in = dup(0);
 	while (1)
 	{
-		ft_getline(&line, data);
-		free(line);
+		if (ac == 3 && !ft_strcmp(av[1], "-c"))
+		{
+			int parsing_ret;
+			int status;
+			line = av[2];
+			parsing_ret = parse_line(line, data);
+			if (parsing_ret == 0)
+				status = pipes_loop(data->command);
+			free_data(data);
+			exit(0);
+		}
+		else
+		{
+			ft_getline(&line, data);
+			free(line);
+		}
 	}
 	i = 0;
 	while (data->command->env[i])
