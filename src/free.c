@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/07 16:09:38 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/14 15:55:29 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	free_double(char **str)
 {
-	int		i;
+	int	i;
 
-	if(!str)
+	if (!str)
 		return ;
 	i = 0;
-	while(str[i] != NULL)
+	while (str[i] != NULL)
 	{
 		free(str[i]);
 		i++;
@@ -32,13 +32,10 @@ void	free_double_int(int **pipes_fd)
 	int		i;
 
 	i = 0;
-	while(pipes_fd[i] != NULL)
+	while (pipes_fd[i] != NULL)
 	{
 		free(pipes_fd[i]);
 		i++;
 	}
 	free(pipes_fd);
 }
-
-
-

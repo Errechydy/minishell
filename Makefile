@@ -6,26 +6,34 @@
 #    By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 16:30:24 by ler-rech          #+#    #+#              #
-#    Updated: 2021/03/12 15:15:56 by ler-rech         ###   ########.fr        #
+#    Updated: 2021/03/14 19:15:29 by ler-rech         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FLAGS = -Wall -Wextra -Werror
 GCC = gcc
 FILES_C =	main.c \
+			main2.c \
+			main3.c \
+			main4.c \
+			main5.c \
 			get_next_line/get_next_line.c \
 			get_next_line/get_next_line_utils.c \
 			src/functions.c \
 			src/exe.c \
+			src/exe2.c \
 			src/cd.c \
 			src/exit.c \
 			src/echo.c \
 			src/helper.c \
 			src/env.c \
 			src/export.c \
+			src/export2.c \
+			src/export3.c \
+			src/export4.c \
 			src/unset.c \
+			src/unset2.c \
 			src/free.c \
-			data.c \
 			parsing/*.c \
 			parsing/errors/*.c \
 			parsing/helpers/*.c \

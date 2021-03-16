@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   unsetTemp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/07 16:33:07 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:17:36 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int is_valid_arg2(char *arg, int show_error)
 {
 
 	// else if (it starts with something other than char), show error
-	if(arg_start_with_char(arg) == 1) // TODO: crate this
+	if(arg_start_with_char(arg) == 0) // TODO: crate this
 	{
 		return (1);
 	}
@@ -49,9 +49,10 @@ int is_valid_arg2(char *arg, int show_error)
 		// if show_error == 1 ===> show errors
 		if(show_error == 1)
 		{
-			ft_putstr_fd("shell: unset: '", 1);
-			ft_putstr_fd(arg, 1);
-			ft_putstr_fd("': not a valid identifier\n", 1);
+			ft_putstr_fd("Minishell: unset: '", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			g_exist.last_exec = 1;
 		}
 		return (0);
 	}
@@ -67,37 +68,36 @@ int count_valid_args2(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if(is_valid_arg2(args[i], 0) == 1)
+		if(is_valid_arg2(args[i], 0) == 0)
 			len++;
 		i++;
 	}
 	return (len);
 }
 
-void set_valid_envs2(t_command *command)
+char **set_valid_envs2(t_command *command)
 {
 	int i;
 	int j;
 	char **new_env;
 	int len;
 
-	len = count_valid_args2(command->args);
+	len = count_valid_args2(&(command->full_args[1]));
 	new_env = (char **)malloc(sizeof(char *) * (len + 1));
-	i = 0;
+	i = 1;
 	j = 0;
-	while (command->args[i] != NULL)
+	while (command->full_args[i] != NULL)
 	{
-		if(is_valid_arg2(command->args[i], 1) == 1)
+		if(is_valid_arg2(command->full_args[i], 1) == 1)
 		{
-			new_env[j] = ft_strdup(command->args[i]);
+			new_env[j] = ft_strdup(command->full_args[i]);
 			j++;
 		}
 		
 		i++;
 	}
 	new_env[j] = NULL;
-	free_double(command->args);
-	command->args = new_env;
+	return (new_env);
 }
 
 
@@ -130,15 +130,17 @@ int shell_unset(t_command *command, t_minishell *minishell)
 	int i;
 	int new_vars;
 	int j;
+	char **interm;
+
 	// char **new_env;
 
 
 
 
 	
-	set_valid_envs2(command);
+	interm = set_valid_envs2(command);
 
-	new_vars = vars_counter_(command->args, minishell->env); // argsNum that needs to be unset
+	new_vars = vars_counter_(interm, minishell->env); // argsNum that needs to be unset
 
 
 	
@@ -152,7 +154,7 @@ int shell_unset(t_command *command, t_minishell *minishell)
 	j = 0;
 	while(minishell->env[i] != NULL)
 	{
-		if(keep_env(minishell->env[i], command->args) == 1)
+		if(keep_env(minishell->env[i], interm) == 1)
 		{
 			env_tmp[j] = ft_strdup(minishell->env[i]);
 			j++;	
@@ -165,6 +167,7 @@ int shell_unset(t_command *command, t_minishell *minishell)
 	
 	// free_double(new_env);
 	free_double(minishell->env);
+	free_double(interm);
 	minishell->env = env_tmp;
 	return (1);
 }

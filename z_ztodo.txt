@@ -1,20 +1,103 @@
 
+segfault : 
+			export dsfsafds sdfdsaf dsfadsfs adsfds
+			export A=a B=b C=c D=d E=e F=f G=g H=h I=i J=j K=k L=lM=m N=n O=o P=p Q=q R=r S=s T=t U=u V=v W=w X=x Y=y Z=z;
+
+
+
+
+export 
+unset
+
+export HOME => dont update it if value = empty
+
+
+
+
+
+=========== Hamza ======================
+set PWD, OLDPWD on start up
+===========================================
 
 
 
 
 
 
-echo -n -n -n -n bonjour
-echo $sdfds // not existing variable
-export BONJOUR\\sdfsf=a
-echo $A$B
+
+
+===========================================
+
+echo -nnnnnnnn kjkljk
+env don't show those who doesn't have "="
+set $OLDPWD
+leaks
+mkdir test_dir ; cd test_dir ;  rm -rf ../test_dir ;  cd . ; echo $OLDPWD ; echo $PWD
+< a ; echo hi
+
+===========================================
 
 
 
 
 
 
+
+
+
+
+
+
+main2.c : 
+int		commands_loop2(t_minishell *minishell, t_list *my_pipe)
+{
+	t_list		*current;
+	int			status;
+	t_command	*command;
+
+	status = 1;
+	command = (t_command*)my_pipe->content;
+	status = loop_redirections(minishell, command);
+	if (status < 0)
+		// return (-1);
+		return (1);
+	status = shell_execute(minishell, command);
+	if (status == 0)
+		return (0);
+	reset_std(minishell);
+	return (1);
+}
+
+
+
+
+
+- main4.c
+int		loop_redirections2(t_redirection *redirection)
+{
+	int	fd;
+
+	if (redirection->type == LEFT_REDIR).
+	{
+		fd = read_file(redirection->file_name);
+		if (fd < 0)
+			return (-1);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	else
+	{
+		if (redirection->type == RIGHT_REDIR)
+			fd = create_empty_file(redirection->file_name);
+		else
+			fd = create_append_file(redirection->file_name);
+		if (fd < 0)
+			return (-1);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	return (0);
+}
 
 
 

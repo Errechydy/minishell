@@ -6,16 +6,11 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:23:13 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/10 18:18:13 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:50:08 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void		sig_int(int sig)
-{
-	kill(0, sig);
-}
 
 static		int	ft_read_file(int fd, char **storage)
 {
@@ -26,9 +21,6 @@ static		int	ft_read_file(int fd, char **storage)
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (-1);
-	// signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
-	
 	while (ft_line_found(*storage) == -1)
 	{
 		rd = read(fd, buf, BUFFER_SIZE);
@@ -41,6 +33,15 @@ static		int	ft_read_file(int fd, char **storage)
 	}
 	ft_free(&buf);
 	return (rd);
+}
+
+void			ctrld(char *storage)
+{
+	if (*storage == '\0')
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit(0);
+	}
 }
 
 int				get_next_line(int fd, char **line)
@@ -60,8 +61,8 @@ int				get_next_line(int fd, char **line)
 			return (rd);
 		else if (rd == 0)
 		{
-			*line = ft_strdup(storage);
-			ft_free(&storage);
+			ctrld(storage);
+			get_next_line(fd, line);
 			return (0);
 		}
 	}

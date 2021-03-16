@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhirha <hrhirha@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 12:41:39 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/02 12:41:41 by hrhirha          ###   ########.fr       */
+/*   Updated: 2021/03/14 18:23:30 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*handle_dquotes(char *s, int *i, char **env)
 
 	*i += 1;
 	str = ft_calloc(1, 1);
+	g_exist.quote = 0;
 	while (s[*i] != '"' && s[*i])
 	{
 		j = 0;
@@ -59,6 +60,7 @@ char	*handle_squotes(char *s, int *i)
 
 	*i += 1;
 	str = ft_calloc(1, 1);
+	g_exist.quote = 0;
 	j = 0;
 	while (s[*i + j] != '\'' && s[*i + j])
 		j++;
@@ -74,6 +76,7 @@ char	*handle_noquotes(char *s, int *i, char **env)
 	int		j;
 
 	str = ft_calloc(1, 1);
+	g_exist.quote = 1;
 	while (s[*i] != '"' && s[*i] != '\'' && s[*i])
 	{
 		j = 0;
@@ -82,17 +85,11 @@ char	*handle_noquotes(char *s, int *i, char **env)
 			j++;
 		get_simple_str(&str, s, i, j);
 		if (s[*i] == '\\')
-		{
 			handle_escape(s, i, '\0', &str);
-		}
 		else if (s[*i] == '$')
-		{
 			handle_env_expansion(s, i, env, &str);
-		}
 		else if (s[*i] == '~')
-		{
 			handle_tilde_expansion(s, i, env, &str);
-		}
 	}
 	return (str);
 }

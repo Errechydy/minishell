@@ -1,46 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   export4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/10 09:55:54 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/02/09 19:28:00 by ler-rech         ###   ########.fr       */
+/*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
+/*   Updated: 2021/03/16 17:28:28 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-int is_space(char c)
+int		ex_helper1(char *arg)
 {
-    if (c == 32)
-		return (1);
-	else
-		return (0);
+	ft_putstr_fd("shell: export: '", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_exist.last_exec = 1;
+	return (0);
 }
 
-char *ltrim(char *s)
+void	ex_helper2(char **env)
 {
-    while(is_space(*s) == 1) s++;
-    return s;
-}
+	int j;
 
-char *rtrim(char *s)
-{
-	int len;
-
-	len = ft_strlen(s) - 1;
-	while (is_space(s[len]) == 1)
-		len--;
-	s[len + 1] = '\0';
-	return (s);
-}
-
-char *trimit(char *s)
-{
-	if(!s)
-		return (NULL);
-    return rtrim(ltrim(s)); 
+	j = 0;
+	while (env[j] != NULL)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		display_env_chars(env[j]);
+		ft_putchar_fd('\n', 1);
+		j++;
+	}
 }
