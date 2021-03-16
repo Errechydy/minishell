@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:23:13 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/15 15:50:08 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/16 18:29:57 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void			ctrld(char *storage)
 		ft_putstr_fd("exit\n", 1);
 		exit(0);
 	}
+	else
+		ft_putstr_fd("  \b\b", 1);
 }
 
 int				get_next_line(int fd, char **line)

@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/16 17:01:38 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/16 19:26:20 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ int				ft_is_userscore(int c);
 int				arg_start_with_char(char *str);
 int				is_valid_arg(char *arg, int show_error);
 int				is_valid_arg2(char *arg, int show_error);
+int				valid_arg(char *str);
 int				count_valid_args(char **args);
 char			**set_valid_envs(t_command *command);
 void			free_double(char **str);
@@ -185,4 +186,5 @@ int				handle_command(t_minishell *minishell, t_command *command);
 int				commands_loop(t_minishell *minishell, t_list *pipe);
 int				pipes_loop(t_minishell *minishell);
 void			set_pwd_oldpwd(char *new_path, char **env, int type);
+int				arg_exist(char *arg, t_minishell *minishell);
 #endif
