@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrhirha <hrhirha@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 17:55:51 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/05 18:40:41 by hrhirha          ###   ########.fr       */
+/*   Updated: 2021/03/17 18:02:05 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		get_filename(char *line, t_data *data)
 		|| line[data->i] == ';' || line[data->i] == '\0')
 	{
 		ret = error(SNTXERR, line[data->i]);
+		g_exist.last_exec = 258;
 	}
 	data->redirection->file_name = get_str(line, &data->i);
 	if (line[data->i] == '|' || line[data->i] == ';'

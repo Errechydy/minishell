@@ -6,7 +6,7 @@
 #    By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/29 16:30:24 by ler-rech          #+#    #+#              #
-#    Updated: 2021/03/16 19:35:17 by ler-rech         ###   ########.fr        #
+#    Updated: 2021/03/17 17:33:33 by ler-rech         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES_C =	main.c \
 			src/env.c \
 			src/export.c \
 			src/unset.c \
+			src/pwd.c \
 			src/free.c \
 			parsing/*.c \
 			parsing/errors/*.c \
@@ -54,9 +55,10 @@ san:
 	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address -g
 
 clean:
-	rm -rf minishell; cd libft; make clean
+	cd libft; make clean
 
 fclean: clean
+	rm -rf minishell; 
 	cd libft; make fclean
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 12:32:27 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/13 18:20:07 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		func4(t_minishell *minishell, t_command *command,
 
 int		func5(int **pipes_fd, int *forks)
 {
-	ft_putstr_fd("Minishell: Error in pipe\n", 2);
+	ft_putstr_fd("minishell: Error in pipe\n", 2);
 	free(forks);
 	free_double_int(pipes_fd);
 	return (1);
@@ -48,7 +48,7 @@ int		func6(int **pipes_fd, int *forks, int commands_len)
 		{
 			free(pipes_fd);
 			free(forks);
-			ft_putstr_fd("Minishell: Error in pipe\n", 2);
+			ft_putstr_fd("minishell: Error in pipe\n", 2);
 			return (1);
 		}
 		j++;

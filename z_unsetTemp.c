@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetTemp.c                                        :+:      :+:    :+:   */
+/*   z_unsetTemp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/14 18:17:36 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int is_valid_arg2(char *arg, int show_error)
 		// if show_error == 1 ===> show errors
 		if(show_error == 1)
 		{
-			ft_putstr_fd("Minishell: unset: '", 2);
+			ft_putstr_fd("minishell: unset: '", 2);
 			ft_putstr_fd(arg, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_exist.last_exec = 1;

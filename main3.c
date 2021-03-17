@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 12:32:27 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/13 18:04:22 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:48:05 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		shell_execute(t_minishell *minishell, t_command *command)
 		return (shell_unset(command, minishell));
 	else if (strcmp(command->full_args[0], "env") == 0)
 		return (shell_env(minishell));
+	else if (strcmp(command->full_args[0], "pwd") == 0)
+		return (shell_pwd(minishell));
 	else
 		return (shell_launch(minishell, command));
 }
@@ -47,9 +49,10 @@ int		read_file(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		g_exist.last_exec = 1;
 		return (-1);
 	}
 	return (fd);
@@ -63,9 +66,10 @@ int		create_empty_file(char *file_name)
 			| S_IRGRP | S_IWGRP | S_IWUSR, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": Couldn't create the file\n", 2);
+		g_exist.last_exec = 1;
 		return (-1);
 	}
 	return (fd);
@@ -79,7 +83,7 @@ int		create_append_file(char *file_name)
 			| S_IRGRP | S_IWGRP | S_IWUSR, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": Couldn't create the file\n", 2);
 		return (-1);

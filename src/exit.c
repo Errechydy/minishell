@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/14 15:53:20 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			check_int(char *str)
 
 int			shell_exit1(t_command *command)
 {
-	ft_putstr_fd("Minishell: exit: ", 2);
+	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(command->full_args[1], 2);
 	ft_putstr_fd(": numeric argument required \n", 2);
 	exit(255);
@@ -62,7 +62,7 @@ int			shell_exit1(t_command *command)
 
 int			shell_exit2(t_command *command)
 {
-	ft_putstr_fd("Minishell: exit: ", 2);
+	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(command->full_args[1], 2);
 	ft_putstr_fd(": numeric argument required \n", 2);
 	exit(255);
@@ -89,7 +89,7 @@ int			shell_exit(t_command *command)
 	}
 	else if (check_int(command->full_args[1]) == 0)
 		shell_exit2(command);
-	ft_putstr_fd("Minishell: exit: too many arguments \n", 2);
+	ft_putstr_fd("minishell: exit: too many arguments \n", 2);
 	g_exist.last_exec = 1;
 	return (1);
 }

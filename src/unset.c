@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/16 19:24:52 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void unset_invalid_arg_msg(char *arg)
 {
-	ft_putstr_fd("Minishell: unset: '", 2);
+	ft_putstr_fd("minishell: unset: '", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	g_exist.last_exec = 1;

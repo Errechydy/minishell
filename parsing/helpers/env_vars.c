@@ -6,30 +6,55 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:09:53 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/16 17:01:20 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:38:44 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	set_env(char **s, t_data *data)
+void    set_env(char **s, t_data *data)
 {
-	int x;
-	int	i;
-
-	x = 0;
-	while (s[x])
-		x++;
-	data->command->env = malloc((x + 1) * sizeof(char *));
-	if (!data->command->env)
-		exit_errno(ENOMEM);
-	i = 0;
-	while (i < x)
-	{
-		data->command->env[i] = ft_strdup(s[i]);
-		i++;
-	}
-	data->command->env[i] = NULL;
+    int     x;
+    int     i;
+    char    *pwd;
+    char    *tmp;
+    char    *shlvl;
+    int     lvl;
+    x = 0;
+    while (s[x])
+        x++;
+    data->command->env = malloc((x + 1) * sizeof(char *));
+    if (!data->command->env)
+        exit_errno(ENOMEM);
+    i = 0;
+    while (i < x)
+    {
+        data->command->env[i] = ft_strdup(s[i]);
+        i++;
+    }
+    data->command->env[i] = NULL;
+    tmp = getcwd(NULL, 0);
+    pwd = ft_strjoin("PWD=", tmp);
+	if (export_arg_exist(pwd, data->command) == 0)
+		export_varible_edit(pwd, data->command);	
+	else
+		export_varible(pwd, data->command);
+    free(tmp);
+    free(pwd);
+    unset_varible("OLDPWD", data->command);
+    export_varible("OLDPWD", data->command);
+    tmp = get_env_value("SHLVL", data->command->env);
+    lvl = ft_atoi(tmp);
+    lvl++;
+    free(tmp);
+    tmp = ft_itoa(lvl);
+    shlvl = ft_strjoin("SHLVL=", tmp);
+	if (export_arg_exist(shlvl, data->command) == 0)
+		export_varible_edit(shlvl, data->command);	
+	else
+		export_varible(shlvl, data->command);	
+    free(tmp);
+    free(shlvl);
 }
 
 int		search_env(char *key, char **env, int i, int *j)

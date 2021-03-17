@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main2-1.c                                          :+:      :+:    :+:   */
+/*   z_mainTemp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 12:32:27 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/14 16:58:26 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	read_file(char* file_name)
     fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return (-1);
@@ -64,7 +64,7 @@ int	create_empty_file(char* file_name)
     fd = open(file_name, O_WRONLY | O_TRUNC | O_CREAT | S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": Couldn't create the file\n", 2);
 		return (-1);
@@ -79,7 +79,7 @@ int	create_append_file(char* file_name)
 	fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND , S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": Couldn't create the file\n", 2);
 		return (-1);
@@ -152,7 +152,7 @@ int commands_loop(t_minishell *minishell, t_list *my_pipe)
 		{
 			free(pipes_fd);
 			free(forks);
-			ft_putstr_fd("Minishell: Error in pipe\n", 2);
+			ft_putstr_fd("minishell: Error in pipe\n", 2);
 			return (1);
 		}
 		j++;
@@ -169,7 +169,7 @@ int commands_loop(t_minishell *minishell, t_list *my_pipe)
 		forks[i] = fork();
 		if (forks[i] < 0)
 		{
-			ft_putstr_fd("Minishell: Error in pipe\n", 2);
+			ft_putstr_fd("minishell: Error in pipe\n", 2);
 			free(forks);
 			free_double_int(pipes_fd);
 			return (1);

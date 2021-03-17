@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 18:13:23 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/17 17:37:15 by ler-rech         ###   ########.fr       */
+/*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
+/*   Updated: 2021/03/17 17:37:12 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	exit_errno(int errnum)
+int	shell_pwd(t_minishell *minishell)
 {
-	errno = errnum;
-	exit(errno);
-}
+	int i;
+	char *pwd;
 
-int		error(int errnum, char c)
-{
-	int	err;
-
-	err = 0;
-	if (errnum == SNTXERR)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		ft_putstr_fd("minishell: syntax error near ", 1);
-		if (c == '\0')
-			ft_putstr_fd("'newline'", 1);
-		ft_putchar_fd(c, 1);
-		ft_putchar_fd('\n', 1);
-		err = 1;
+		ft_putstr_fd("minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: ", 2);
+		ft_putendl_fd(strerror(errno), 2);
+		g_exist.last_exec = 1;
 	}
-	return (err);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	g_exist.last_exec = 0;
+	return (1);
 }
