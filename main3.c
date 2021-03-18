@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 12:32:27 by hrhirha           #+#    #+#             */
-/*   Updated: 2021/03/17 17:48:05 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:16:55 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	reset_std(t_minishell *minishell)
 
 int		shell_execute(t_minishell *minishell, t_command *command)
 {
+	check_lower_case(command);
 	if (command->full_args == NULL)
 		return (1);
 	if (strcmp(command->full_args[0], "exit") != 0)
@@ -51,7 +52,7 @@ int		read_file(char *file_name)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		print_error();
 		g_exist.last_exec = 1;
 		return (-1);
 	}
@@ -68,7 +69,7 @@ int		create_empty_file(char *file_name)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
-		ft_putstr_fd(": Couldn't create the file\n", 2);
+		print_error();
 		g_exist.last_exec = 1;
 		return (-1);
 	}
@@ -85,7 +86,7 @@ int		create_append_file(char *file_name)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
-		ft_putstr_fd(": Couldn't create the file\n", 2);
+		print_error();
 		return (-1);
 	}
 	return (fd);

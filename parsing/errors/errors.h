@@ -17,5 +17,6 @@
 
 void	exit_errno(int errnum);
 int		error(int errnum, char c);
+void	print_error();
 
 #endif

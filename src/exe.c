@@ -6,7 +6,7 @@
 /*   By: ler-rech <ler-rech@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 10:12:11 by ler-rech          #+#    #+#             */
-/*   Updated: 2021/03/17 18:24:50 by ler-rech         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:09:17 by ler-rech         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		shell_launch2(t_command *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
 	g_exist.last_exec = 127;
 	return (1);
 }
@@ -25,7 +27,9 @@ int		shell_launch3(t_command *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
+	ft_putstr_fd("\n", 2);
 	return (126);
 }
 
@@ -53,8 +57,6 @@ char	*shell_launch5(t_minishell *minishell, t_command *command)
 int		shell_launch(t_minishell *minishell, t_command *command)
 {
 	pid_t	pid;
-	pid_t	wpid;
-	int		status;
 	char	*execter;
 
 	execter = shell_launch5(minishell, command);
@@ -68,7 +70,6 @@ int		shell_launch(t_minishell *minishell, t_command *command)
 			exit(shell_launch3(command));
 		else
 			exit(0);
-		
 	}
 	else if (pid < 0)
 	{
