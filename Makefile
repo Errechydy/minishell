@@ -34,20 +34,21 @@ FILE_H = libft.h
 all: lib $(NAME)
 
 lib:
-	cd libft; make ; make bonus
+	make -C libft/
+	make bonus -C libft/
 
 $(NAME):
 	@$(GCC) -o minishell $(FILES_C) libft/libft.a
 
-san:
-	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address -g
+san: fclean all
+	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address
 
 clean:
-	cd libft; make clean
+	make clean -C libft/
 
 fclean: clean
-	rm -rf minishell; 
-	cd libft; make fclean
+	rm -rf minishell
+	make fclean -C libft/
 
 norm:
 	@norminette *.c *.h */*.c */*.h */*/*.c */*/*.h

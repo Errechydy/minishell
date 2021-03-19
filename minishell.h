@@ -25,6 +25,8 @@
 # include <sys/errno.h>
 # include "get_next_line/get_next_line.h"
 # include "parsing/errors/errors.h"
+# include <sys/wait.h>
+
 # define PROMPT "user@minishell$ "
 # define EXIT_SUCCESS		0
 # define EXIT_FAILURE		1
@@ -38,6 +40,7 @@ struct			s_exist
 	int			last_exec;
 	int			dir;
 	int			quote;
+	char		*storage;
 }				g_exist;
 
 typedef struct	s_redirection
