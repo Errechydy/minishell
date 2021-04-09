@@ -120,11 +120,17 @@ void	set_pwd_oldpwd(char *new_path, char **env, int type)
 		pwd++;
 	}
 	free(env[oldpwd]);
-	env[oldpwd] = ft_strjoin("OLDPWD=",
-		ft_substr(env[pwd], j + 1, ft_strlen(env[pwd])));
+	char *str_tmp;
+	str_tmp = ft_substr(env[pwd], j + 1, ft_strlen(env[pwd]));
+	env[oldpwd] = ft_strjoin("OLDPWD=", str_tmp);
 	free(env[pwd]);
+	free(str_tmp);
 	if (type == 1)
 		env[pwd] = ft_strjoin("PWD=", new_path);
 	else
-		env[pwd] = ft_strjoin("PWD=", ft_strjoin(&env[oldpwd][7], "/."));
+	{
+		str_tmp = ft_strjoin(&env[oldpwd][7], "/.");
+		env[pwd] = ft_strjoin("PWD=", str_tmp);
+		free(str_tmp);
+	}
 }

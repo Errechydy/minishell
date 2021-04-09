@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int		export_env_compair(char *var1, char *var2)
+int	export_env_compair(char *var1, char *var2)
 {
 	int		res;
 	char	**str1;
@@ -30,7 +30,7 @@ int		export_env_compair(char *var1, char *var2)
 	return (res);
 }
 
-int		export_arg_exist(char *full_arg, t_minishell *minishell)
+int	export_arg_exist(char *full_arg, t_minishell *minishell)
 {
 	int	i;
 
@@ -63,9 +63,9 @@ void	export_varible_edit(char *arg, t_minishell *minishell)
 
 void	display_env_chars(char *env)
 {
-	int len;
-	int i;
-	int first;
+	int	len;
+	int	i;
+	int	first;
 
 	first = 0;
 	len = ft_strlen(env);

@@ -56,7 +56,7 @@ void	display_env_ordred2(char **env, int count)
 	free_double(env_temp);
 }
 
-int		display_env_ordred(char **env)
+int	display_env_ordred(char **env)
 {
 	int	count;
 
@@ -65,9 +65,9 @@ int		display_env_ordred(char **env)
 	return (0);
 }
 
-int		shell_export(t_command *command, t_minishell *minishell)
+int	shell_export(t_command *command, t_minishell *minishell)
 {
-	int i;
+	int	i;
 
 	if (command->full_args[1] == NULL)
 	{

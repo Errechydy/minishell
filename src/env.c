@@ -14,7 +14,7 @@
 
 int	shell_env(t_minishell *minishell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (minishell->env[i] != NULL)

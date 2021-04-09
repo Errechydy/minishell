@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-int					ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
 	unsigned char	*s1_temp;
 	unsigned char	*s2_temp;
 
-	s1_temp = (unsigned char*)s1;
-	s2_temp = (unsigned char*)s2;
+	s1_temp = (unsigned char *)s1;
+	s2_temp = (unsigned char *)s2;
 	i = 0;
 	while (i < n && ((*s1_temp != '\0') || (*s2_temp != '\0')))
 	{

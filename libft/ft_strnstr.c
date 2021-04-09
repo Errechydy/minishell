@@ -28,19 +28,19 @@ static char	helper1(char *str_temp, char *to_find_temp, size_t len, size_t i)
 	return (*to_find_temp);
 }
 
-char		*ft_strnstr(const char *ha, const char *ne, size_t len)
+char	*ft_strnstr(const char *ha, const char *ne, size_t len)
 {
 	size_t	i;
 
 	if (*ne == '\0')
-		return ((char*)ha);
+		return ((char *)ha);
 	i = 0;
 	while (i < len && *ha != '\0')
 	{
 		if (*ha == *ne)
 		{
-			if (helper1((char*)ha, (char*)ne, len, i) == '\0')
-				return ((char*)ha);
+			if (helper1((char *)ha, (char *)ne, len, i) == '\0')
+				return ((char *)ha);
 		}
 		ha++;
 		i++;

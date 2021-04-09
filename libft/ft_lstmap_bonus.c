@@ -24,13 +24,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *))
 	{
 		if (current == NULL)
 		{
-			if (!(new = ft_lstnew(f(lst->content))) && !f(lst->content))
+			new = ft_lstnew(f(lst->content));
+			if (!new && !f(lst->content))
 				return (NULL);
 			current = new;
 		}
 		else
 		{
-			if (!(current->next = ft_lstnew(f(lst->content))))
+			current->next = ft_lstnew(f(lst->content));
+			if (!current->next)
 				ft_lstclear(&new, d);
 			current = current->next;
 		}

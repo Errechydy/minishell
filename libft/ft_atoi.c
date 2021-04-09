@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long	sum;
 	int		negative;
@@ -19,8 +19,8 @@ int			ft_atoi(const char *str)
 		return (0);
 	negative = 1;
 	sum = 0;
-	while (*str != '\0' && (*str == '\t' || *str == '\n' || *str == '\r' ||
-	*str == '\v' || *str == '\f' || *str == ' '))
+	while (*str != '\0' && (*str == '\t' || *str == '\n' || *str == '\r'
+			|| *str == '\v' || *str == '\f' || *str == ' '))
 		++str;
 	if (*str == '-')
 		negative = -1;

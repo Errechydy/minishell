@@ -17,8 +17,7 @@ FILES_C =	main.c \
 			main3.c \
 			main4.c \
 			main5.c \
-			get_next_line/get_next_line.c \
-			get_next_line/get_next_line_utils.c \
+			get_next_line/*.c\
 			src/*.c \
 			parsing/*.c \
 			parsing/errors/*.c \
@@ -38,10 +37,10 @@ lib:
 	make bonus -C libft/
 
 $(NAME):
-	@$(GCC) -o minishell $(FILES_C) libft/libft.a
+	@$(GCC) -o minishell $(FILES_C) libft/libft.a -ltermcap
 
 san: fclean all
-	@$(GCC) -o minishell $(FILES_C) libft/libft.a -fsanitize=address
+	@$(GCC) -g -o minishell $(FILES_C) libft/libft.a -fsanitize=address -ltermcap
 
 clean:
 	make clean -C libft/

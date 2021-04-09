@@ -1,4 +1,8 @@
 
 
 
-- echo hi | exit
+- $sdfsdfdsfds ==> segmentation fault
+
+
+
+1111 | exit 56464 sdfasfdsf | 222 | 3333 | 444 |  55555 | ls  =====> doesn't display errors in the right order

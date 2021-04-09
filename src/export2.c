@@ -20,7 +20,7 @@ void	export_invalid_arg_msg(char *arg)
 	g_exist.last_exec = 1;
 }
 
-int		valid_arg_export(char *str)
+int	valid_arg_export(char *str)
 {
 	char	**args;
 	int		i;
@@ -44,7 +44,7 @@ int		valid_arg_export(char *str)
 	return (0);
 }
 
-int		arg_has_equal(char *arg)
+int	arg_has_equal(char *arg)
 {
 	int	i;
 
@@ -63,8 +63,8 @@ void	export_varible(char *arg, t_minishell *minishell)
 	char	**new_env;
 	int		i;
 
-	new_env = (char **)malloc(sizeof(char *) *
-		(words_counter(minishell->env) + 2));
+	new_env = (char **)malloc(sizeof(char *)
+			* (words_counter(minishell->env) + 2));
 	i = 0;
 	while (minishell->env[i] != NULL)
 	{

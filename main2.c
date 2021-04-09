@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-int		commands_loop2(t_minishell *minishell, t_list *my_pipe)
+int	commands_loop2(t_minishell *minishell, t_list *my_pipe)
 {
 	int			status;
 	t_command	*command;
 
 	status = 1;
-	command = (t_command*)my_pipe->content;
+	command = (t_command *)my_pipe->content;
 	status = loop_redirections(minishell, command);
 	if (status < 0)
 		return (1);
@@ -29,7 +29,7 @@ int		commands_loop2(t_minishell *minishell, t_list *my_pipe)
 	return (1);
 }
 
-int		pipes_loop(t_minishell *minishell)
+int	pipes_loop(t_minishell *minishell)
 {
 	t_list	*current;
 	int		status;

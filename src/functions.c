@@ -20,7 +20,7 @@ void	unset_invalid_arg_msg(char *arg)
 	g_exist.last_exec = 1;
 }
 
-int		is_space(char c)
+int	is_space(char c)
 {
 	if (c == 32)
 		return (1);
@@ -37,7 +37,7 @@ char	*ltrim(char *s)
 
 char	*rtrim(char *s)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(s) - 1;
 	while (is_space(s[len]) == 1)

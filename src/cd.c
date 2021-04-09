@@ -14,7 +14,7 @@
 
 void	shell_cd2(t_command *command, char **env)
 {
-	char *pwd;
+	char	*pwd;
 
 	if (chdir(command->full_args[1]) == -1)
 	{
@@ -38,10 +38,11 @@ void	shell_cd2(t_command *command, char **env)
 			set_pwd_oldpwd(pwd, env, 1);
 			g_exist.last_exec = 0;
 		}
+		free(pwd);
 	}
 }
 
-int		shell_cd(t_command *command, char **env)
+int	shell_cd(t_command *command, char **env)
 {
 	char	*home;
 
@@ -55,12 +56,17 @@ int		shell_cd(t_command *command, char **env)
 		}
 		else
 		{
-			chdir(get_env_value("HOME", env));
-			set_pwd_oldpwd(get_env_value("HOME", env), env, 1);
+			chdir(home);
+			set_pwd_oldpwd(home, env, 1);
 		}
+		free(home);
 	}
 	else if (command->full_args[1][0] == '\0')
-		set_pwd_oldpwd(get_env_value("PWD", env), env, 1);
+	{
+		home = get_env_value("PWD", env);
+		set_pwd_oldpwd(home, env, 1);
+		free(home);
+	}
 	else
 		shell_cd2(command, env);
 	return (1);

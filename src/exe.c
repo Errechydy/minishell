@@ -12,22 +12,20 @@
 
 #include "../minishell.h"
 
-int		shell_launch2(t_command *command)
+int	shell_launch2(t_command *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
 	g_exist.last_exec = 127;
-	return (1);
+	return (127);
 }
 
-int		shell_launch3(t_command *command)
+int	shell_launch3(t_command *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd("\n", 2);
+	ft_putstr_fd(": command not found\n", 2);
 	return (126);
 }
 
@@ -52,7 +50,7 @@ char	*shell_launch5(t_minishell *minishell, t_command *command)
 	return (execter);
 }
 
-int		shell_launch(t_minishell *minishell, t_command *command)
+int	shell_launch(t_minishell *minishell, t_command *command)
 {
 	pid_t	pid;
 	char	*execter;

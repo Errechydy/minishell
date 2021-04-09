@@ -23,16 +23,39 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <sys/errno.h>
-# include "get_next_line/get_next_line.h"
+# include "libft/libft.h"
 # include "parsing/errors/errors.h"
 # include <sys/wait.h>
+# include "get_next_line/gnl_term.h"
+# include <term.h>
+# include <termios.h>
+# include <curses.h>
 
 # define PROMPT "user@minishell$ "
+
 # define EXIT_SUCCESS		0
 # define EXIT_FAILURE		1
+
 # define LEFT_REDIR 1
 # define RIGHT_REDIR 2
 # define DRIGHT_REDIR 3
+
+typedef struct	s_tc
+{
+	char			*name;
+	struct termios	term;
+	struct termios	init;
+	char			*cm;
+	char			*ce;
+	char			*dl;
+}				t_tc;
+
+typedef struct	s_hist
+{
+	char			*s;
+	struct s_hist	*next;
+	struct s_hist	*prev;
+}				t_hist;
 
 struct			s_exist
 {
@@ -40,9 +63,12 @@ struct			s_exist
 	int			last_exec;
 	int			dir;
 	int			quote;
-	char		*storage;
+	char		*line;
+	t_tc		tc;
+	t_hist		*hist;
+	t_hist		*tmp_hist;
+	char		*tmp_line;
 }				g_exist;
-
 typedef struct	s_redirection
 {
 	int		type;
@@ -117,8 +143,7 @@ void			func1(int **pipes_fd, int *forks, int commands_len);
 void			func2(int i, int **pipes_fd, int commands_len);
 int				func3(t_minishell *minishell, t_command *command,
 		int **pipes_fd, int *forks);
-int				func4(t_minishell *minishell, t_command *command,
-		int **pipes_fd, int *forks);
+int				func4(t_minishell *minishell, t_command *command);
 int				func5(int **pipes_fd, int *forks);
 int				func6(int **pipes_fd, int *forks, int commands_len);
 int				func7(t_minishell *minishell, t_helper1 helper, int i);
@@ -173,7 +198,7 @@ char			*shell_read(void);
 int				shell_execute(t_minishell *minishell, t_command *current);
 int				shell_launch(t_minishell *minishell, t_command *command);
 int				shell_cd(t_command *command, char **env);
-int				shell_exit(t_command *command);
+int				shell_exit(t_command *command, t_minishell *minishell);
 int				shell_echo(t_command *command, t_minishell *minishell);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *new);

@@ -51,7 +51,7 @@ static long	ft_strtrimlen(char const *s1, char const *set)
 	return (s0_len - (i + j));
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	long	ln;
 	char	*temp;

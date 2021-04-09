@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char		*help1(void)
+char	*help1(void)
 {
 	char	*hex;
 
@@ -22,7 +22,7 @@ char		*help1(void)
 	return (hex);
 }
 
-char		*ft_hexconv(unsigned int c)
+char	*ft_hexconv(unsigned int c)
 {
 	char	*hex;
 	int		i;
@@ -46,7 +46,7 @@ char		*ft_hexconv(unsigned int c)
 	return (hex);
 }
 
-char		*help2(char *p)
+char	*help2(char *p)
 {
 	char	*hex;
 
@@ -68,7 +68,7 @@ char		*help2(char *p)
 	return (hex);
 }
 
-int			help3(char **hex, size_t c)
+int	help3(char **hex, size_t c)
 {
 	char	*hex_tmp;
 	int		temp;
@@ -94,7 +94,7 @@ int			help3(char **hex, size_t c)
 	return (i);
 }
 
-char		*ft_hexconv_p(size_t c, char *p)
+char	*ft_hexconv_p(size_t c, char *p)
 {
 	char	*hex;
 	int		i;

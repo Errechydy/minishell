@@ -12,9 +12,9 @@
 
 #include "../minishell.h"
 
-int		words_counter(char **env)
+int	words_counter(char **env)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (env[len] != NULL)

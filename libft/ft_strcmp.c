@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strcmp(const char *x, const char *y)
+int	ft_strcmp(const char *x, const char *y)
 {
 	while (*x)
 	{
@@ -19,10 +19,10 @@ int		ft_strcmp(const char *x, const char *y)
 		x++;
 		y++;
 	}
-	return (*(const unsigned char*)x - *(const unsigned char*)y);
+	return (*(const unsigned char *)x - *(const unsigned char *)y);
 }
 
-int		ft_strcmp2(const char *x, const char *y)
+int	ft_strcmp2(const char *x, const char *y)
 {
 	if (x)
 	{
@@ -33,7 +33,7 @@ int		ft_strcmp2(const char *x, const char *y)
 			x++;
 			y++;
 		}
-		return (*(const unsigned char*)x - *(const unsigned char*)y);
+		return (*(const unsigned char *)x - *(const unsigned char *)y);
 	}
 	else
 		return (-1);

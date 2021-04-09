@@ -88,7 +88,7 @@ char	*found_exec(t_command *command, t_minishell *minishell)
 	return (found_exec2(paths, tmp1));
 }
 
-int		ft_str_has_char(const char *s, int c)
+int	ft_str_has_char(const char *s, int c)
 {
 	size_t	s_len;
 

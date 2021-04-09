@@ -12,9 +12,9 @@
 
 #include "../minishell.h"
 
-int		valid_arg(char *str)
+int	valid_arg(char *str)
 {
-	int i;
+	int	i;
 
 	if (ft_isdigit(str[0]) == 1)
 		return (1);
@@ -28,7 +28,7 @@ int		valid_arg(char *str)
 	return (0);
 }
 
-int		env_compair(char *var1, char *arg)
+int	env_compair(char *var1, char *arg)
 {
 	int		res;
 	char	**str1;
@@ -41,9 +41,9 @@ int		env_compair(char *var1, char *arg)
 	return (res);
 }
 
-int		arg_exist(char *arg, t_minishell *minishell)
+int	arg_exist(char *arg, t_minishell *minishell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (minishell->env[i] != NULL)
@@ -61,8 +61,8 @@ void	unset_varible(char *arg, t_minishell *minishell)
 	int		i;
 	int		j;
 
-	new_env = (char **)malloc(sizeof(char *) *
-		(words_counter(minishell->env) + arg_exist(arg, minishell)));
+	new_env = (char **)malloc(sizeof(char *)
+			* (words_counter(minishell->env) + arg_exist(arg, minishell)));
 	i = 0;
 	j = 0;
 	while (minishell->env[i] != NULL)
@@ -79,9 +79,9 @@ void	unset_varible(char *arg, t_minishell *minishell)
 	minishell->env = new_env;
 }
 
-int		shell_unset(t_command *command, t_minishell *minishell)
+int	shell_unset(t_command *command, t_minishell *minishell)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (command->full_args[i] != NULL)

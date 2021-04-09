@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		words_num(char *str, char c)
+static int	words_num(char *str, char c)
 {
 	int			words;
 	int			length;
@@ -35,7 +35,7 @@ static int		words_num(char *str, char c)
 	return (length);
 }
 
-static int		word_length(char *str, int i, char c)
+static int	word_length(char *str, int i, char c)
 {
 	int			length;
 
@@ -56,7 +56,7 @@ static	void	*wrds_free(char **wrds, int j)
 	return (NULL);
 }
 
-static char		**alloc_wrds(char **wrds, char const *s, char c)
+static char	**alloc_wrds(char **wrds, char const *s, char c)
 {
 	int			i;
 	int			j;
@@ -64,12 +64,12 @@ static char		**alloc_wrds(char **wrds, char const *s, char c)
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0' && j < words_num((char*)s, c))
+	while (s[i] != '\0' && j < words_num((char *)s, c))
 	{
 		k = 0;
 		while (s[i] == c && s[i] != '\0')
 			i++;
-		wrds[j] = ft_calloc(word_length((char*)s, i, c) + 1, sizeof(char));
+		wrds[j] = ft_calloc(word_length((char *)s, i, c) + 1, sizeof(char));
 		if (wrds[j] == NULL)
 		{
 			wrds_free(wrds, j);
@@ -85,13 +85,13 @@ static char		**alloc_wrds(char **wrds, char const *s, char c)
 	return (wrds);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char		**wrds;
 
 	if (s == NULL)
 		return (NULL);
-	wrds = ft_calloc(words_num((char*)s, c) + 1, sizeof(char*));
+	wrds = ft_calloc(words_num((char *)s, c) + 1, sizeof(char *));
 	if (wrds == NULL)
 		return (NULL);
 	alloc_wrds(wrds, s, c);

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		loop_redirections2(t_redirection *redirection)
+int	loop_redirections2(t_redirection *redirection)
 {
 	int	fd;
 
@@ -38,7 +38,7 @@ int		loop_redirections2(t_redirection *redirection)
 	return (0);
 }
 
-int		loop_redirections(t_minishell *minishell, t_command *command)
+int	loop_redirections(t_minishell *minishell, t_command *command)
 {
 	t_list			*current;
 	t_redirection	*redirection;
@@ -48,7 +48,7 @@ int		loop_redirections(t_minishell *minishell, t_command *command)
 	current = command->redirections;
 	while (current != NULL)
 	{
-		redirection = (t_redirection*)current->content;
+		redirection = (t_redirection *)current->content;
 		status = loop_redirections2(redirection);
 		if (status != 0)
 			return (status);
@@ -83,7 +83,7 @@ void	func1(int **pipes_fd, int *forks, int commands_len)
 
 void	func2(int i, int **pipes_fd, int commands_len)
 {
-	int f;
+	int	f;
 
 	if (i == 0)
 		dup2(pipes_fd[0][1], 1);
@@ -103,10 +103,10 @@ void	func2(int i, int **pipes_fd, int commands_len)
 	}
 }
 
-int		func3(t_minishell *minishell, t_command *command,
+int	func3(t_minishell *minishell, t_command *command,
 		int **pipes_fd, int *forks)
 {
-	int status;
+	int	status;
 
 	status = loop_redirections(minishell, command);
 	if (status < 0)

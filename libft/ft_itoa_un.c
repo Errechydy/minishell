@@ -27,15 +27,19 @@ static unsigned long	numlen(unsigned long num)
 	return (len);
 }
 
-static void				helper(char *temp, int i, unsigned long nb)
+static void	helper(char *temp, int i, unsigned long nb)
 {
 	unsigned long		copy;
 	unsigned long		size;
 
 	copy = nb;
 	size = 1;
-	while ((copy /= 10) > 0)
+	copy /= 10;
+	while (copy > 0)
+	{
+		copy /= 10;
 		size *= 10;
+	}
 	while (size > 0)
 	{
 		temp[i] = nb / size + '0';
@@ -46,7 +50,7 @@ static void				helper(char *temp, int i, unsigned long nb)
 	temp[i] = '\0';
 }
 
-char					*ft_itoa_un(unsigned nb)
+char	*ft_itoa_un(unsigned int nb)
 {
 	char				*temp;
 	int					i;

@@ -18,11 +18,11 @@ void	reset_std(t_minishell *minishell)
 	dup2(minishell->in, 0);
 }
 
-int		shell_execute(t_minishell *minishell, t_command *command)
+int	shell_execute(t_minishell *minishell, t_command *command)
 {
-	check_lower_case(command);
-	if (command->full_args == NULL)
+	if (command->full_args == NULL || command->full_args[0] == NULL)
 		return (1);
+	check_lower_case(command);
 	if (strcmp(command->full_args[0], "exit") != 0)
 		g_exist.last_exec = 0;
 	if (strcmp(command->full_args[0], "cd") == 0)
@@ -30,7 +30,7 @@ int		shell_execute(t_minishell *minishell, t_command *command)
 	else if (strcmp(command->full_args[0], "echo") == 0)
 		return (shell_echo(command, minishell));
 	else if (strcmp(command->full_args[0], "exit") == 0)
-		return (shell_exit(command));
+		return (shell_exit(command, minishell));
 	else if (strcmp(command->full_args[0], "export") == 0)
 		return (shell_export(command, minishell));
 	else if (strcmp(command->full_args[0], "unset") == 0)
@@ -43,7 +43,7 @@ int		shell_execute(t_minishell *minishell, t_command *command)
 		return (shell_launch(minishell, command));
 }
 
-int		read_file(char *file_name)
+int	read_file(char *file_name)
 {
 	int	fd;
 
@@ -59,7 +59,7 @@ int		read_file(char *file_name)
 	return (fd);
 }
 
-int		create_empty_file(char *file_name)
+int	create_empty_file(char *file_name)
 {
 	int	fd;
 
@@ -76,7 +76,7 @@ int		create_empty_file(char *file_name)
 	return (fd);
 }
 
-int		create_append_file(char *file_name)
+int	create_append_file(char *file_name)
 {
 	int	fd;
 

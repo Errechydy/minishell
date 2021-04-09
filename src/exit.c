@@ -35,7 +35,7 @@ long long	ft_str_int(const char *str)
 	return ((long long)(n * signe));
 }
 
-int			check_int(char *str)
+int	check_int(char *str)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ int			check_int(char *str)
 	return (1);
 }
 
-int			shell_exit1(t_command *command)
+int	shell_exit1(t_command *command)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(command->full_args[1], 2);
@@ -60,7 +60,7 @@ int			shell_exit1(t_command *command)
 	exit(255);
 }
 
-int			shell_exit2(t_command *command)
+int	shell_exit2(t_command *command)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(command->full_args[1], 2);
@@ -68,22 +68,25 @@ int			shell_exit2(t_command *command)
 	exit(255);
 }
 
-int			shell_exit(t_command *command)
+int	shell_exit(t_command *command, t_minishell *minishell)
 {
 	long long	exit_code;
+	t_list		*my_pipe;
 
-	ft_putstr_fd("exit\n", 2);
+	my_pipe = minishell->cmds->content;
+	if (my_pipe->next == NULL)
+		ft_putstr_fd("exit\n", 2);
 	exit_code = g_exist.last_exec;
 	if (command->full_args[1] == NULL)
 		exit(exit_code);
-	else if (check_int(command->full_args[1]) == 1 &&
-		command->full_args[2] == NULL)
+	else if (check_int(command->full_args[1]) == 1
+		&& command->full_args[2] == NULL)
 	{
 		exit_code = ft_str_int(command->full_args[1]);
-		if (((command->full_args[1][0] != '-' && exit_code < 0) ||
-			ft_strlen(command->full_args[1]) > 19) ||
-			((command->full_args[1][0] == '-' && exit_code > 0) ||
-			ft_strlen(command->full_args[1]) > 19))
+		if (((command->full_args[1][0] != '-' && exit_code < 0)
+			|| ft_strlen(command->full_args[1]) > 19)
+			|| ((command->full_args[1][0] == '-' && exit_code > 0)
+			|| ft_strlen(command->full_args[1]) > 19))
 			shell_exit1(command);
 		exit(exit_code % 256);
 	}

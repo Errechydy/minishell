@@ -40,8 +40,12 @@ static void	helper(char *temp, int i, long nb)
 
 	copy = nb;
 	size = 1;
-	while ((copy /= 10) > 0)
+	copy /= 10;
+	while (copy > 0)
+	{
+		copy /= 10;
 		size *= 10;
+	}
 	while (size > 0)
 	{
 		temp[i] = nb / size + '0';
@@ -52,7 +56,7 @@ static void	helper(char *temp, int i, long nb)
 	temp[i] = '\0';
 }
 
-char		*ft_itoa(int nb)
+char	*ft_itoa(int nb)
 {
 	char	*temp;
 	int		i;
