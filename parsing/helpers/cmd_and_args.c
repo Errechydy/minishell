@@ -60,20 +60,19 @@ void	get_command_and_args(char *line, t_data *data, int ret)
 {
 	while (isblank(line[data->i]) == 0)
 		data->i++;
-	if (line[data->i] != '>' && line[data->i] != '<' &&
-		line[data->i] != ';' && line[data->i] != '|' &&
-		isblank(line[data->i]) == 1 && line[data->i])
+	if (line[data->i] != '>' && line[data->i] != '<'
+		&& line[data->i] != ';' && line[data->i] != '|'
+		&& isblank(line[data->i]) == 1 && line[data->i])
 	{
 		get_command_as_str(line, data);
 		data->ac++;
 	}
 	if ((line[data->i] == '|' || line[data->i] == ';'
-		|| !line[data->i] || ret == 1))
+			|| !line[data->i] || ret == 1))
 	{
 		if (data->ac)
 		{
-			data->simple_cmd->full_args =
-							get_arg_tab(data->cmd, data->ac);
+			data->simple_cmd->full_args = get_arg_tab(data->cmd, data->ac);
 		}
 		free(data->cmd);
 	}

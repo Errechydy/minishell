@@ -92,6 +92,8 @@ int	ft_str_has_char(const char *s, int c)
 {
 	size_t	s_len;
 
+	if (!*s)
+		return (1);
 	s_len = ft_strlen(s) + 1;
 	while (s_len--)
 	{

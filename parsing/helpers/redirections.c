@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int		get_filename(char *line, t_data *data)
+int	get_filename(char *line, t_data *data)
 {
 	int	ret;
 
@@ -51,7 +51,7 @@ void	get_redir_type(char *line, t_data *data)
 	}
 }
 
-int		get_redirection(char *line, t_data *data)
+int	get_redirection(char *line, t_data *data)
 {
 	int	ret;
 
@@ -62,6 +62,6 @@ int		get_redirection(char *line, t_data *data)
 	get_redir_type(line, data);
 	ret = get_filename(line, data);
 	ft_lstadd_back(&data->simple_cmd->redirections,
-				ft_lstnew(data->redirection));
+		ft_lstnew(data->redirection));
 	return (ret);
 }

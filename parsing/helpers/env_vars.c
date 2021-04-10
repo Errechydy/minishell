@@ -54,9 +54,9 @@ void	set_env(char **s, t_data *data)
 	update_env_shlvl(data);
 }
 
-int		search_env(char *key, char **env, int i, int *j)
+int	search_env(char *key, char **env, int i, int *j)
 {
-	char *env_key;
+	char	*env_key;
 
 	*j = 0;
 	while (env[i][*j] != '=' && env[i][*j])
@@ -98,39 +98,4 @@ char	*get_env_value(char *key, char **env)
 		free(tmp);
 	}
 	return (env_value);
-}
-
-void	set_pwd_oldpwd(char *new_path, char **env, int type)
-{
-	int pwd;
-	int oldpwd;
-	int j;
-
-	oldpwd = -1;
-	while (env[++oldpwd])
-	{
-		if (search_env("OLDPWD", env, oldpwd, &j) == 0)
-			break ;
-	}
-	pwd = 0;
-	while (env[pwd])
-	{
-		if (search_env("PWD", env, pwd, &j) == 0)
-			break ;
-		pwd++;
-	}
-	free(env[oldpwd]);
-	char *str_tmp;
-	str_tmp = ft_substr(env[pwd], j + 1, ft_strlen(env[pwd]));
-	env[oldpwd] = ft_strjoin("OLDPWD=", str_tmp);
-	free(env[pwd]);
-	free(str_tmp);
-	if (type == 1)
-		env[pwd] = ft_strjoin("PWD=", new_path);
-	else
-	{
-		str_tmp = ft_strjoin(&env[oldpwd][7], "/.");
-		env[pwd] = ft_strjoin("PWD=", str_tmp);
-		free(str_tmp);
-	}
 }

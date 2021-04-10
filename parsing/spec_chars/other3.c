@@ -12,59 +12,56 @@
 
 #include "../../minishell.h"
 
-int	isblank(int c)
+int	is_valid_env(char *arg)
 {
-	if (c == ' ' || c == '\t')
-		return (0);
+	int	i;
+
+	i = 0;
+	while (arg[i] != '\0')
+	{
+		if (ft_isalnum(arg[i]) != 1 && arg[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	does_env_exist(char *arg, char **env)
+{
+	int		i;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (export_env_compair(env[i], arg) == 1)
+			return (0);
+		i++;
+	}
 	return (1);
 }
 
-int	tab_size(char **t)
+void	drop_pro(t_command *cmd, int index)
 {
-	int	i;
+	char	**tb;
+	int		i;
+	int		j;
+	int		len;
 
+	len = index;
+	len = tab_size(cmd->full_args);
+	tb = (char **)malloc(sizeof(char *) * (len));
 	i = 0;
-	while (t[i])
+	j = 0;
+	while (cmd->full_args[i] != NULL)
+	{
+		if (i != index)
+		{
+			tb[j] = ft_strdup(cmd->full_args[i]);
+			j++;
+		}
 		i++;
-	return (i);
-}
-
-void	free_tab(char **t)
-{
-	int	i;
-
-	i = 0;
-	while (t[i])
-		free(t[i++]);
-	free(t);
-}
-
-void	init_cmd(t_data *data)
-{
-	data->simple_cmd = malloc(sizeof(t_command));
-	if (!data->simple_cmd)
-		exit_errno(ENOMEM);
-	data->cmd = ft_calloc(1, 1);
-	if (!data->cmd)
-		exit_errno(ENOMEM);
-	data->simple_cmd->redirections = NULL;
-	data->simple_cmd->full_args = NULL;
-	data->ac = 0;
-}
-
-void	update_env_pwd(t_data *data)
-{
-	char	*pwd;
-	char	*tmp;
-
-	tmp = getcwd(NULL, 0);
-	pwd = ft_strjoin("PWD=", tmp);
-	if (export_arg_exist(pwd, data->command) == 0)
-		export_varible_edit(pwd, data->command);
-	else
-		export_varible(pwd, data->command);
-	free(tmp);
-	free(pwd);
-	unset_varible("OLDPWD", data->command);
-	export_varible("OLDPWD", data->command);
+	}
+	tb[j] = NULL;
+	free_double(cmd->full_args);
+	cmd->full_args = tb;
 }

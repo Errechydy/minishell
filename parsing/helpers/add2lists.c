@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int		add_cmd_to_pipes(char *line, t_data *data)
+int	add_cmd_to_pipes(char *line, t_data *data)
 {
 	int		ret;
 
@@ -30,7 +30,7 @@ int		add_cmd_to_pipes(char *line, t_data *data)
 	return (ret);
 }
 
-int		add_pipes_to_cmds(char *line, t_data *data)
+int	add_pipes_to_cmds(char *line, t_data *data)
 {
 	int		ret;
 

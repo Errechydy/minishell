@@ -36,7 +36,7 @@ char	**tabjoin(char **t1, char **t2, int i)
 	return (t);
 }
 
-int		split_arg_exp(int i, t_command *cmd)
+int	split_arg_exp(int i, t_command *cmd)
 {
 	int		ret;
 	char	**tab_split;

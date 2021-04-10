@@ -40,7 +40,7 @@
 # define RIGHT_REDIR 2
 # define DRIGHT_REDIR 3
 
-typedef struct	s_tc
+typedef struct s_tc
 {
 	char			*name;
 	struct termios	term;
@@ -50,7 +50,7 @@ typedef struct	s_tc
 	char			*dl;
 }				t_tc;
 
-typedef struct	s_hist
+typedef struct s_hist
 {
 	char			*s;
 	struct s_hist	*next;
@@ -69,19 +69,19 @@ struct			s_exist
 	t_hist		*tmp_hist;
 	char		*tmp_line;
 }				g_exist;
-typedef struct	s_redirection
+typedef struct s_redirection
 {
 	int		type;
 	char	*file_name;
 }				t_redirection;
 
-typedef struct	s_command
+typedef struct s_command
 {
 	char	**full_args;
 	t_list	*redirections;
 }				t_command;
 
-typedef struct	s_minishell
+typedef struct s_minishell
 {
 	t_list	*cmds;
 	char	**env;
@@ -89,7 +89,7 @@ typedef struct	s_minishell
 	int		in;
 }				t_minishell;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int				i;
 	char			*cmd;
@@ -100,7 +100,7 @@ typedef struct	s_data
 	int				ac;
 }				t_data;
 
-typedef struct	s_helper1
+typedef struct s_helper1
 {
 	t_command	*command;
 	int			**pipes_fd;
@@ -142,7 +142,7 @@ int				loop_redirections2(t_redirection *redirection);
 void			func1(int **pipes_fd, int *forks, int commands_len);
 void			func2(int i, int **pipes_fd, int commands_len);
 int				func3(t_minishell *minishell, t_command *command,
-		int **pipes_fd, int *forks);
+					int **pipes_fd, int *forks);
 int				func4(t_minishell *minishell, t_command *command);
 int				func5(int **pipes_fd, int *forks);
 int				func6(int **pipes_fd, int *forks, int commands_len);
@@ -197,7 +197,7 @@ void			shell_parce(t_minishell *minishell, char *line);
 char			*shell_read(void);
 int				shell_execute(t_minishell *minishell, t_command *current);
 int				shell_launch(t_minishell *minishell, t_command *command);
-int				shell_cd(t_command *command, char **env);
+int				shell_cd(t_command *command, t_minishell *minishell);
 int				shell_exit(t_command *command, t_minishell *minishell);
 int				shell_echo(t_command *command, t_minishell *minishell);
 t_list			*ft_lstnew(void *content);
@@ -213,7 +213,8 @@ int				loop_redirections(t_minishell *minishell, t_command *command);
 int				handle_command(t_minishell *minishell, t_command *command);
 int				commands_loop(t_minishell *minishell, t_list *pipe);
 int				pipes_loop(t_minishell *minishell);
-void			set_pwd_oldpwd(char *new_path, char **env, int type);
+void			set_pwd_oldpwd(char *new_path,
+					t_minishell *minishell, int type);
 int				arg_exist(char *arg, t_minishell *minishell);
 void			export_varible(char *arg, t_minishell *minishell);
 void			unset_varible(char *arg, t_minishell *minishell);
@@ -230,4 +231,10 @@ int				display_env_ordred(char **env);
 void			unset_invalid_arg_msg(char *arg);
 void			check_lower_case(t_command *command);
 void			update_env_pwd(t_data *data);
+int				help99(int *pwd, int *oldpwd, char **env);
+int				search_env(char *key, char **env, int i, int *j);
+void			scan_redirs(t_list *redirs, char **env);
+int				is_valid_env(char *arg);
+int				does_env_exist(char *arg, char **env);
+void			drop_pro(t_command *cmd, int index);
 #endif

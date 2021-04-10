@@ -43,7 +43,7 @@ char	*handle_dquotes(char *s, int *i, char **env)
 		if (s[*i] == '\\')
 			handle_escape(s, i, '"', &str);
 		else if (s[*i] == '$')
-			handle_env_expansion(s	, i, env, &str);
+			handle_env_expansion(s, i, env, &str);
 	}
 	if (s[*i] == '"')
 	{
@@ -79,8 +79,8 @@ char	*handle_noquotes(char *s, int *i, char **env)
 	while (s[*i] != '"' && s[*i] != '\'' && s[*i])
 	{
 		j = 0;
-		while (s[*i + j] != '"' && s[*i + j] != '\'' && s[*i + j] != '\\' &&
-				s[*i + j] != '$' && s[*i + j] != '~' && s[*i + j])
+		while (s[*i + j] != '"' && s[*i + j] != '\'' && s[*i + j] != '\\'
+			&& s[*i + j] != '$' && s[*i + j] != '~' && s[*i + j])
 			j++;
 		get_simple_str(&str, s, i, j);
 		if (s[*i] == '\\')

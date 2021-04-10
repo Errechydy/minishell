@@ -18,7 +18,7 @@ void	exit_errno(int errnum)
 	exit(errno);
 }
 
-int		error(int errnum, char c)
+int	error(int errnum, char c)
 {
 	int	err;
 

@@ -53,10 +53,11 @@ char	*unquoted_str(char *line, int *i)
 
 	g_exist.quote = 1;
 	j = 0;
-	while ((line[*i + j] != ';' && line[*i + j] != '|' &&
-			line[*i + j] != '>' && line[*i + j] != '<' && line[*i + j] &&
-			isblank(line[*i + j]) == 1 && line[*i + j] != '"' &&
-			line[*i + j] != '\'') || (line[*i + j - 1] == '\\' && line[*i + j]))
+	while ((line[*i + j] != ';' && line[*i + j] != '|'
+			&& line[*i + j] != '>' && line[*i + j] != '<' && line[*i + j]
+			&& isblank(line[*i + j]) == 1 && line[*i + j] != '"'
+			&& line[*i + j] != '\'') || (line[*i + j - 1] == '\\'
+			&& line[*i + j]))
 		j++;
 	substr = ft_substr(line, *i, j);
 	*i += j;
@@ -70,9 +71,9 @@ char	*get_str(char *line, int *i)
 	char	*str;
 
 	str = ft_calloc(1, 1);
-	while (line[*i] != ';' && line[*i] != '|' &&
-			line[*i] != '>' && line[*i] != '<' &&
-			isblank(line[*i]) == 1 && line[*i])
+	while (line[*i] != ';' && line[*i] != '|'
+		&& line[*i] != '>' && line[*i] != '<'
+		&& isblank(line[*i]) == 1 && line[*i])
 	{
 		if (line[*i] == '"')
 			substr = dquoted_str(line, i);

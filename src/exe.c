@@ -25,7 +25,7 @@ int	shell_launch3(t_command *command)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	print_error();
 	return (126);
 }
 
@@ -56,7 +56,7 @@ int	shell_launch(t_minishell *minishell, t_command *command)
 	char	*execter;
 
 	execter = shell_launch5(minishell, command);
-	if (execter == NULL)
+	if (execter == NULL || !*execter)
 		return (shell_launch2(command));
 	pid = fork();
 	if (ft_strcmp(execter, "./minishell") == 0)
