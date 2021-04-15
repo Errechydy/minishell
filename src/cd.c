@@ -12,14 +12,6 @@
 
 #include "../minishell.h"
 
-void	er_display_error(char *pwd, t_minishell *minishell)
-{
-	ft_putstr_fd("minishell: cd: error retrieving current directory: \
-getcwd: cannot access parent directories: ", 2);
-	ft_putendl_fd(strerror(errno), 2);
-	set_pwd_oldpwd(pwd, minishell, 2);
-}
-
 void	shell_cd2(t_command *command, t_minishell *minishell)
 {
 	char	*pwd;
@@ -35,7 +27,12 @@ void	shell_cd2(t_command *command, t_minishell *minishell)
 	{
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
-			er_display_error(pwd, minishell);
+		{
+			ft_putstr_fd("minishell: cd: error retrieving current directory: \
+			getcwd: cannot access parent directories: ", 2);
+			ft_putendl_fd(strerror(errno), 2);
+			set_pwd_oldpwd(pwd, minishell, 2);
+		}
 		else
 		{
 			set_pwd_oldpwd(pwd, minishell, 1);

@@ -1,1 +1,0 @@
-command , space, up arrow

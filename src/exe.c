@@ -26,7 +26,7 @@ int	shell_launch3(t_command *command)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
 	print_error();
-	if (errno == 13)
+	if(errno == 13)
 	{
 		g_exist.last_exec = 126;
 		return (126);
@@ -41,7 +41,10 @@ int	shell_launch3(t_command *command)
 void	shell_launch4(t_command *command, int pid, char *execter)
 {
 	waitpid(pid, &g_exist.last_exec, 0);
-	g_exist.last_exec = WEXITSTATUS(g_exist.last_exec);
+	if (WIFSIGNALED(g_exist.last_exec))
+		g_exist.last_exec = WTERMSIG(g_exist.last_exec) + 128;
+	else
+		g_exist.last_exec = WEXITSTATUS(g_exist.last_exec);
 	if (ft_str_has_char(command->full_args[0], '/') == 0)
 	{
 		free(execter);
