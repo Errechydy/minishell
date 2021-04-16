@@ -12,11 +12,18 @@
 
 #include "../minishell.h"
 
-int	shell_launch2(t_command *command)
+int	shell_launch2(t_minishell *minishell, t_command *command)
 {
+	char	*path;
+
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(command->full_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
+	path = get_env_value("PATH", minishell->env);
+	if(!*path)
+		ft_putstr_fd(": no such file or directory\n", 2);
+	else
+		ft_putstr_fd(": command not found\n", 2);
+	free(path);
 	g_exist.last_exec = 127;
 	return (127);
 }
@@ -69,7 +76,7 @@ int	shell_launch(t_minishell *minishell, t_command *command)
 
 	execter = shell_launch5(minishell, command);
 	if (execter == NULL || !*execter)
-		return (shell_launch2(command));
+		return (shell_launch2(minishell, command));
 	pid = fork();
 	if (ft_strcmp(execter, "./minishell") == 0)
 		g_exist.pid = 2;
